@@ -51,7 +51,7 @@ angular.module('starter.controllers', ['firebase'])
 
   $scope.addAtividade = function () {
     ItemService.addAtividade(angular.copy($scope.newItem));
-    $scope.newItem = {categoria: '', descricao: 'hey', prioridade: '1'};
+    $scope.newItem = {categoria: 'trabalho', descricao: 'hey', prioridade: '1'};
   }
 
   $scope.updateAtividade = function (id) {
