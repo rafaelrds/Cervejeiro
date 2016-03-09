@@ -1,4 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['firebase'])
+
+    .constant('FIREBASE_URI', 'https://povmt.firebaseio.com/atividades')
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -41,16 +43,101 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
+.controller('AtividadesCtrl',['$scope', 'ItemService',function($scope,ItemService) {
+  $scope.newItem = {categoria: '', descricao: '', prioridade: '1'};
+  $scope.currentItem = null;
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+  $scope.atividades = ItemService.getAtividades();
+
+  $scope.addAtividade = function () {
+    ItemService.addAtividade(angular.copy($scope.newItem));
+    $scope.newItem = {categoria: 'trabalho', descricao: 'hey', prioridade: '1'};
+  }
+
+  $scope.updateAtividade = function (id) {
+    ItemService.updateAtividade(id);
+  }
+
+  $scope.removeAtividade = function (id) {
+    ItemService.removeAtividade(id);
+  }
+
+}])
+
+.factory('ItemService', [ '$firebaseArray', 'FIREBASE_URI', function($firebaseArray,FIREBASE_URI){
+
+    var ref = new Firebase(FIREBASE_URI);
+    var atividades = $firebaseArray(ref);
+
+    var getAtividades = function() {
+      return atividades;
+    }
+    var addAtividade = function (atividade) {
+      atividades.$add(atividade);
+    }
+
+    var removeAtividade = function (id) {
+      atividades.$remove(id);
+    }
+
+    var updateAtividade = function(id) {
+      atividades.$save(id);
+    }
+
+    return {
+      getAtividades: getAtividades,
+      addAtividade: addAtividade,
+      updateAtividade: updateAtividade,
+      removeAtividade: removeAtividade
+    }
+}]);
+
+
+
+// .controller('AtividadesCtrl',['$scope', '$firebaseArray',function($scope,$firebaseArray){
+
+//     var atividadesRecuperadas = new Firebase('https://povmt.firebaseio.com/atividades');
+//     $scope.atividades = $firebaseArray(atividadesRecuperadas);
+
+//     $scope.getAtividade = function() {
+//       return atividades;
+//     }
+//     $scope.addAtividade = function (atividade) {
+//       atividades.$add(atividade);
+//     }
+
+//     $scope.removeAtividade = function (id) {
+//       atividades.$remove(atividade);
+//     }
+
+//     $scope.salvaAtividade = function(id) {
+//       atividades.$save(id);
+//     }
+
+// }]);
+
+// .controller('AtividadesCtrl', function($scope) {
+//   $scope.atividades = [
+//     { title: 'Reggae', id: 1 },
+//     { title: 'Chill', id: 2 },
+//     { title: 'Dubstep', id: 3 },
+//     { title: 'Indie', id: 4 },
+//     { title: 'Rap', id: 5 },
+//     { title: 'Cowbell', id: 6 }
+//   ];
+// })
+
+// .controller('PlaylistCtrl', function($scope, $stateParams) {
+// });
+
+// {
+//   "rules": {
+//     "users": {
+//       "$uid": {
+//         ".read": "auth != null && auth.uid == $uid",
+//         ".write": "auth != null && auth.uid == $uid"
+//       }
+//     }
+//   }
+// }
+
