@@ -150,11 +150,10 @@ angular.module('starter.controllers', [])
         ionicMaterialInk.displayEffect();
 
         this.addAtividade = function(atividade) {
-            $scope.atividades.then(function(ref) {
-                ref.$add(angular.copy(atividade)).then(function() {
-                    $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
-                })
+            $scope.atividades.$add(angular.copy(atividade)).then(function() {
+                $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
             })
+
         }
     })
 

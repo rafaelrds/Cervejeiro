@@ -29,7 +29,6 @@ povmt.controller('AtividadesCtrl',
         });
 
         $scope.addAtividade = function() {
-            console.log(">>> add")
             $state.go("app.activity", {add: true})
             //$scope.atividades.$add(angular.copy($scope.newItem));
             //$scope.newItem = { categoria: 'trabalho', descricao: 'hey', prioridade: '1' };
