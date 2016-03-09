@@ -1,16 +1,6 @@
-angular.module('starter.controllers', ['firebase'])
+var povmt = angular.module('starter');
 
-    .constant('FIREBASE_URI', 'https://povmt.firebaseio.com/atividades')
-
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
+povmt.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -41,103 +31,29 @@ angular.module('starter.controllers', ['firebase'])
       $scope.closeLogin();
     }, 1000);
   };
-})
+});
 
-.controller('AtividadesCtrl',['$scope', 'ItemService',function($scope,ItemService) {
+povmt.controller('AtividadesCtrl',['$scope', 'FirebaseService',function($scope, FirebaseService) {
+  var self = this;
+
   $scope.newItem = {categoria: '', descricao: '', prioridade: '1'};
   $scope.currentItem = null;
 
-  $scope.atividades = ItemService.getAtividades();
+  $scope.atividades = FirebaseService.getArrayEntidades("atividades");
+
+  this.atividades = $scope.atividades;
 
   $scope.addAtividade = function () {
-    ItemService.addAtividade(angular.copy($scope.newItem));
+    self.atividades.$add(angular.copy($scope.newItem));
     $scope.newItem = {categoria: 'trabalho', descricao: 'hey', prioridade: '1'};
   }
 
   $scope.updateAtividade = function (id) {
-    ItemService.updateAtividade(id);
+    self.atividades.$save(id);
   }
 
   $scope.removeAtividade = function (id) {
-    ItemService.removeAtividade(id);
+    self.atividades.$remove(id);
   }
 
-}])
-
-.factory('ItemService', [ '$firebaseArray', 'FIREBASE_URI', function($firebaseArray,FIREBASE_URI){
-
-    var ref = new Firebase(FIREBASE_URI);
-    var atividades = $firebaseArray(ref);
-
-    var getAtividades = function() {
-      return atividades;
-    }
-    var addAtividade = function (atividade) {
-      atividades.$add(atividade);
-    }
-
-    var removeAtividade = function (id) {
-      atividades.$remove(id);
-    }
-
-    var updateAtividade = function(id) {
-      atividades.$save(id);
-    }
-
-    return {
-      getAtividades: getAtividades,
-      addAtividade: addAtividade,
-      updateAtividade: updateAtividade,
-      removeAtividade: removeAtividade
-    }
 }]);
-
-
-
-// .controller('AtividadesCtrl',['$scope', '$firebaseArray',function($scope,$firebaseArray){
-
-//     var atividadesRecuperadas = new Firebase('https://povmt.firebaseio.com/atividades');
-//     $scope.atividades = $firebaseArray(atividadesRecuperadas);
-
-//     $scope.getAtividade = function() {
-//       return atividades;
-//     }
-//     $scope.addAtividade = function (atividade) {
-//       atividades.$add(atividade);
-//     }
-
-//     $scope.removeAtividade = function (id) {
-//       atividades.$remove(atividade);
-//     }
-
-//     $scope.salvaAtividade = function(id) {
-//       atividades.$save(id);
-//     }
-
-// }]);
-
-// .controller('AtividadesCtrl', function($scope) {
-//   $scope.atividades = [
-//     { title: 'Reggae', id: 1 },
-//     { title: 'Chill', id: 2 },
-//     { title: 'Dubstep', id: 3 },
-//     { title: 'Indie', id: 4 },
-//     { title: 'Rap', id: 5 },
-//     { title: 'Cowbell', id: 6 }
-//   ];
-// })
-
-// .controller('PlaylistCtrl', function($scope, $stateParams) {
-// });
-
-// {
-//   "rules": {
-//     "users": {
-//       "$uid": {
-//         ".read": "auth != null && auth.uid == $uid",
-//         ".write": "auth != null && auth.uid == $uid"
-//       }
-//     }
-//   }
-// }
-
