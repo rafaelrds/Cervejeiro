@@ -1,0 +1,32 @@
+<ion-modal-view view-title="Atividades" style="height:100%;">
+    <ion-header-bar style="background-color:#b71c1c;">
+        <h3 class="title-modal">Criar Atividade</h3>
+        <a href="" data-ng-click="closeModal()"><i class="icon ion-close close"></i></a>
+    </ion-header-bar>
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="list ">
+            <label class="item item-input">Categoria</label>
+            <label class="item item-input">
+                <input type="text" placeholder="Estudar" data-ng-model="atividade.categoria">
+            </label>
+            <label class="item item-input">Descrição</label>
+            <label class="item item-input">
+                <input type="text" placeholder="Digite a descrição da atividade" data-ng-model="atividade.descricao">
+            </label>
+            <label class="item item-input">Prioridade </label>
+            <center>
+                <b>{{atividade.prioridade}}</b>
+            </center>
+            <div class="item range">
+                <i class="icon ion-android-remove"></i>
+                <input type="range" min="0" max="10" name="Prioridade" data-ng-model="atividade.prioridade">
+                <i class="icon ion-android-add"></i>
+            </div>
+        </div>
+        <center>
+            <button class="button button-assertive" data-ng-click="salvarAtividade()">
+                Criar
+            </button>
+        </center>
+    </ion-content>
+</ion-modal-view>

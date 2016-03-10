@@ -45,12 +45,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'firebase', 'ionic-ma
                 controller: 'ActivityCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
-                    }, 200);
-                }
+                template: '<button data-ng-click="addAtividade()" id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900"><i class="icon ion-plus"></i></button>',
+                controller: 'ActivityCtrl'
             }
         },
         params: {
@@ -83,14 +79,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'firebase', 'ionic-ma
                 templateUrl: 'templates/gallery.html',
                 controller: 'GalleryCtrl'
             },
-            'fabContent': {
-                template: '<button id="fab-gallery" class="button button-fab button-fab-top-right expanded button-energized-900 drop"><i class="icon ion-heart"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-gallery').classList.toggle('on');
-                    }, 600);
-                }
-            }
+            'fabContent': {}
         }
     })
 
@@ -114,14 +103,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'firebase', 'ionic-ma
                 templateUrl: 'templates/profile.html',
                 controller: 'AtividadesCtrl'
             },
-            'fabContent': {
-                template: '<button data-ng-click="addAtividade()" id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
-                controller: 'AtividadesCtrl'
-            }
+            'fabContent': {}
         }
     })
     ;
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/profile');
+    $urlRouterProvider.otherwise('/app/login');
 });
