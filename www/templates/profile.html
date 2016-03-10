@@ -8,24 +8,17 @@
             </div>
         </div>
         <div class="tabs tabs-dark tabs-icon-top static">
-            <a ui-sref="app.activity" class="tab-item">
+            <a data-ng-click="toggle('atividades')" class="tab-item">
                 <i class="icon ion-arrow-graph-up-right"></i> Atividades
             </a>
             <a ui-sref="app.friends" class="tab-item">
                 <i class="icon ion-clock"></i> Tempo Investido
             </a>
-            <a ui-sref="app.gallery" class="tab-item">
+            <a data-ng-click="toggle('charts')" class="tab-item">
                 <i class="icon ion-pie-graph"></i> Relatórios
             </a>
         </div>
-        <h4 class="content padding double-padding-x">Atividades Recentes</h4>
-        <div class="list" >
-            <a class="item item-avatar item-icon-right" data-ng-repeat="atividade in atividades">
-                <img src="img/activity2.png">
-                <h2>{{atividade.categoria}}</h2>
-                <p>{{atividade.descricao}}</p>
-                <i class="icon ion-android-close" data-ng-click="removeAtividade(atividade)"></i>
-            </a>
-        </div>
+        <div data-ng-show="isTabAtual('atividades')" data-ng-include="'templates/partials/atividades.html'" data-ng-controller="AtividadesCtrl"></div>
+        <div data-ng-show="isTabAtual('charts')" data-ng-include="'templates/partials/charts.html'" data-ng-controller="GalleryCtrl"></div>
     </ion-content>
 </ion-view>

@@ -1,43 +1,62 @@
 var povmt = angular.module('starter');
 
 povmt.controller('AtividadesCtrl',
-    function($scope, $stateParams, $state, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
+    function($scope, $stateParams, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
         var self = this;
-
-        $scope.newItem = { categoria: '', descricao: '', prioridade: '1' };
-        $scope.currentItem = null;
-
+        $scope.atividade = { prioridade: 10 };
         $scope.atividades = [];
 
         FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
             $scope.atividades = info;
 
-            // Set Header
             $scope.$parent.showHeader();
             $scope.$parent.clearFabs();
-            $scope.isExpanded = false;
-            $scope.$parent.setExpanded(false);
-            $scope.$parent.setHeaderFab(true);
-
-            // Set Ink
-            ionicMaterialInk.displayEffect();
-
-            ionicMaterialMotion.slideUp({
-                selector: '.slide-up'
-            });
+            $scope.isExpanded = true;
+            $scope.$parent.setExpanded(true);
+            $scope.$parent.setHeaderFab('right');
         });
 
-        $scope.addAtividade = function() {
-            $state.go("app.activity", {add: true})
-        }
+        // Activate ink for controller
+        ionicMaterialInk.displayEffect();
 
-        $scope.updateAtividade = function(id) {
-            $scope.atividades.$save(id);
-        }
+        $scope.addAtividade = function() {
+            $scope.modal.show();
+        };
+
+        $scope.salvarAtividade = function() {
+            $scope.atividades.$add(angular.copy($scope.atividade)).then(function() {
+                $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
+                $scope.modal.hide();
+                $scope.atividade = { prioridade: 10 };
+            })
+        };
 
         $scope.removeAtividade = function(atividade) {
             $scope.atividades.$remove(atividade).then(function(ref) {
                 $ionicLoading.show({ template: 'Atividade Removida!', noBackdrop: true, duration: 2000 });
             });
-        }
+        };
+
+        $ionicModal.fromTemplateUrl('templates/addAtividadeModal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });
+
+        $scope.closeModal = function() {
+            $scope.modal.hide();
+        };
+        //Cleanup the modal when we're done with it!
+        $scope.$on('$destroy', function() {
+            $scope.modal.remove();
+        });
+        // Execute action on hide modal
+        $scope.$on('modal.hidden', function() {
+            // Execute action
+        });
+        // Execute action on remove modal
+        $scope.$on('modal.removed', function() {
+            // Execute action
+        });
     });
