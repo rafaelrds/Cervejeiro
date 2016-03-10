@@ -115,24 +115,11 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ActivityCtrl',
-    function($scope, $stateParams, $timeout, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
+    function($scope, $stateParams, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
         var self = this;
         $scope.atividade = { prioridade: 10 };
         if ($stateParams.add) {
-            var myPopup = $ionicPopup.show({
-                templateUrl: 'templates/novaAtividade.html',
-                title: 'Criar Atividade',
-                scope: $scope,
-                buttons: [
-                    { text: '<i class="icon ion-ios-close-empty ion-android-done-all"></i>' }, {
-                        text: '<i class="icon ion-android-done-all"></i>',
-                        type: 'button-positive',
-                        onTap: function(e) {
-                            self.addAtividade($scope.atividade);
-                        }
-                    }
-                ]
-            });
+
         }
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
@@ -149,31 +136,46 @@ angular.module('starter.controllers', [])
         // Activate ink for controller
         ionicMaterialInk.displayEffect();
 
-        this.addAtividade = function(atividade) {
-            $scope.atividades.$add(angular.copy(atividade)).then(function() {
+        $scope.addAtividade = function() {
+            $scope.modal.show();
+        };
+
+        $scope.salvarAtividade = function() {
+            $scope.atividades.$add(angular.copy($scope.atividade)).then(function() {
                 $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
+                $scope.modal.hide();
+                $scope.atividade = { prioridade: 10 };
             })
+        };
 
-        }
+        $scope.removeAtividade = function(atividade) {
+            $scope.atividades.$remove(atividade).then(function(ref) {
+                $ionicLoading.show({ template: 'Atividade Removida!', noBackdrop: true, duration: 2000 });
+            });
+        };
+
+        $ionicModal.fromTemplateUrl('templates/addAtividadeModal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });
+
+        $scope.closeModal = function() {
+            $scope.modal.hide();
+        };
+        //Cleanup the modal when we're done with it!
+        $scope.$on('$destroy', function() {
+            $scope.modal.remove();
+        });
+        // Execute action on hide modal
+        $scope.$on('modal.hidden', function() {
+            // Execute action
+        });
+        // Execute action on remove modal
+        $scope.$on('modal.removed', function() {
+            // Execute action
+        });
     })
-
-.controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = true;
-    $scope.$parent.setExpanded(true);
-    $scope.$parent.setHeaderFab(false);
-
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
-
-    ionicMaterialMotion.pushDown({
-        selector: '.push-down'
-    });
-    ionicMaterialMotion.fadeSlideInRight({
-        selector: '.animate-fade-slide-in .item'
-    });
-
-})
 
 ;

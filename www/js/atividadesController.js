@@ -10,7 +10,6 @@ povmt.controller('AtividadesCtrl',
         $scope.atividades = [];
 
         FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
-            console.log(info)
             $scope.atividades = info;
 
             // Set Header
@@ -30,8 +29,6 @@ povmt.controller('AtividadesCtrl',
 
         $scope.addAtividade = function() {
             $state.go("app.activity", {add: true})
-            //$scope.atividades.$add(angular.copy($scope.newItem));
-            //$scope.newItem = { categoria: 'trabalho', descricao: 'hey', prioridade: '1' };
         }
 
         $scope.updateAtividade = function(id) {

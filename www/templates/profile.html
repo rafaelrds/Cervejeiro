@@ -1,9 +1,9 @@
 <ion-view view-title="Perfil">
     <ion-content ng-class="{expanded:$scope.isExpanded}">
-        <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
+        <div class="hero slide-up" style="background: url('img/profile.jpg') center;background-size: cover;">
             <div class="content">
-                <div class="avatar" style="background-image: url('img/daenerys.jpg');"></div>
-                <h3><a class="light">POvMT</a></h3>
+                <div class="avatar" style="background: url('img/user-logo.png') #FFF; background-size: cover; box-shadow: 0px 0px 10px #fff;"></div>
+                <h3><a class="light">Meu Perfil</a></h3>
                 <h4>Para onde vai meu tempo?</h4>
             </div>
         </div>
@@ -19,9 +19,9 @@
             </a>
         </div>
         <h4 class="content padding double-padding-x">Atividades Recentes</h4>
-        <div class="list" data-ng-repeat="atividade in atividades">
-            <a class="item item-avatar item-icon-right">
-                <img src="img/jon-snow.jpg">
+        <div class="list" >
+            <a class="item item-avatar item-icon-right" data-ng-repeat="atividade in atividades">
+                <img src="img/activity2.png">
                 <h2>{{atividade.categoria}}</h2>
                 <p>{{atividade.descricao}}</p>
                 <i class="icon ion-android-close" data-ng-click="removeAtividade(atividade)"></i>
