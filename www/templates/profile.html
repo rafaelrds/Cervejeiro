@@ -11,7 +11,7 @@
             <a data-ng-click="toggle('atividades')" class="tab-item">
                 <i class="icon ion-arrow-graph-up-right"></i> Atividades
             </a>
-            <a ui-sref="app.tempoInvestido" class="tab-item">
+            <a data-ng-click="toggle('tempoInvestido')" class="tab-item">
                 <i class="icon ion-clock"></i> Tempo Investido
             </a>
             <a data-ng-click="toggle('charts')" class="tab-item">
@@ -19,6 +19,7 @@
             </a>
         </div>
         <div data-ng-show="isTabAtual('atividades')" data-ng-include="'templates/partials/atividades.html'" data-ng-controller="AtividadesCtrl"></div>
+        <div data-ng-show="isTabAtual('tempoInvestido')" data-ng-include="'templates/partials/tempoInvestido.html'" data-ng-controller="TempoInvestidoCtrl"></div>
         <div data-ng-show="isTabAtual('charts')" data-ng-include="'templates/partials/charts.html'" data-ng-controller="GalleryCtrl"></div>
     </ion-content>
 </ion-view>

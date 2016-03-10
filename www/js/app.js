@@ -66,7 +66,7 @@ angular.module('starter', [
         url: '/tempoInvestido',
         views: {
             'menuContent': {
-                templateUrl: 'templates/tempoInvestido.html',
+                templateUrl: 'templates/TI.html',
                 controller: 'TempoInvestidoCtrl'
             },
             'fabContent': {
