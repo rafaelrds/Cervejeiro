@@ -10,6 +10,8 @@ angular.module('starter.controllers', [])
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
 
+    $scope.usuario = AuthService.getUsuarioLogado();
+
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
         navIcons.addEventListener('click', function() {

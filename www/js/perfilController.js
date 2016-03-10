@@ -1,7 +1,7 @@
 var povmt = angular.module('starter');
 
 povmt.controller('PerfilCtrl',
-    function($scope, $stateParams, $state, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
+    function($scope, $stateParams, $state, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService, AuthService) {
         var self = this;
 
         // Set Header

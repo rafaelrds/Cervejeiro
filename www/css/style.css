@@ -122,8 +122,18 @@ p {
     color: #FFF;
 }
 
+.login-title {
+    font-family: robotodraft;
+    font-size: 17px;
+    color: #000;
+}
+
 .teal-bg {
     background: #004D40;
+}
+
+.grey-bg {
+    background: #E0E0E0;
 }
 
 .blue-bg {
