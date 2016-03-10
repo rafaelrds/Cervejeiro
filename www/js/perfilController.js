@@ -9,9 +9,9 @@ povmt.controller('PerfilCtrl',
         $scope.$parent.clearFabs();
 
         $timeout(function() {
-            $scope.isExpanded = false;
+            $scope.$parent.isExpanded = false;
             $scope.$parent.setExpanded(false);
-            $scope.$parent.setHeaderFab(true);
+            $scope.$parent.setHeaderFab(false);
         }, 100);
 
         // Set Ink

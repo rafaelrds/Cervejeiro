@@ -3,7 +3,7 @@
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, AuthService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -85,14 +85,10 @@ angular.module('starter.controllers', [])
             fabs[0].remove();
         }
     };
-})
 
-.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
-    $scope.$parent.clearFabs();
-    $timeout(function() {
-        $scope.$parent.hideHeader();
-    }, 0);
-    ionicMaterialInk.displayEffect();
+    $scope.logout = function() {
+        AuthService.logout();
+    }
 })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
