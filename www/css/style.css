@@ -111,3 +111,17 @@ p {
     font-size: 20px;
     color: #b71c1c;
 }
+
+
+/* Charts
+==================================*/
+
+.chart-title {
+    font-family: robotodraft;
+    font-size: 17px;
+    color: #FFF;
+}
+
+.chart-bg {
+    background: #004D40;
+}

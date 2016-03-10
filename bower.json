@@ -8,6 +8,7 @@
     "ionic-material": "^0.4.2"
   },
   "dependencies": {
-    "Chart.js": "^1.0.2"
+    "Chart.js": "^1.0.2",
+    "angular-chart.js": "^0.8.8"
   }
 }
