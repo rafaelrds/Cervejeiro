@@ -85,6 +85,13 @@ angular.module('starter.controllers', [])
             fabs[0].remove();
         }
     };
+
+    $scope.logout = function()
+    {
+        var ref = new Firebase("https://povmt.firebaseio.com/");
+        ref.unauth();
+        // location.path('login');
+    }
 })
 
 .controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
@@ -128,7 +135,7 @@ angular.module('starter.controllers', [])
         $scope.$parent.setHeaderFab('right');
 
         $scope.atividades = [];
-
+      
         FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
             $scope.atividades = info;
         });
