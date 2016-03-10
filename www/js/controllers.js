@@ -3,7 +3,7 @@
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, AuthService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -86,20 +86,9 @@ angular.module('starter.controllers', [])
         }
     };
 
-    $scope.logout = function()
-    {
-        var ref = new Firebase("https://povmt.firebaseio.com/");
-        ref.unauth();
-        // location.path('login');
+    $scope.logout = function() {
+        AuthService.logout();
     }
-})
-
-.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
-    $scope.$parent.clearFabs();
-    $timeout(function() {
-        $scope.$parent.hideHeader();
-    }, 0);
-    ionicMaterialInk.displayEffect();
 })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
@@ -135,7 +124,7 @@ angular.module('starter.controllers', [])
         $scope.$parent.setHeaderFab('right');
 
         $scope.atividades = [];
-      
+
         FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
             $scope.atividades = info;
         });
