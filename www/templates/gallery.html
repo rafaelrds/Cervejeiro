@@ -1,26 +1,5 @@
 <ion-view view-title="Relatórios">
-    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-        <div class="item card-item">
-            <div class="card light-bg ink ink-dark">
-                <div class="item ink chart-bg">
-                    <h2 class="chart-title">Ativididades durante os anos</h2>
-                </div>
-                <div class="item item-text-wrap">
-                    <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels"> chart-series="series"
-                    </canvas </div>
-                </div>
-            </div>
-        </div>
-        <div class="item card-item">
-            <div class="card light-bg ink ink-dark">
-                <div class="item ink chart-bg">
-                    <h2 class="chart-title">Tempo Investido</h2>
-                </div>
-                <div class="item item-text-wrap">
-                    <canvas id="doughnut" class="chart chart-doughnut" chart-data="dadosCategorias" chart-labels="categorias">
-                    </canvas>
-                </div>
-            </div>
-        </div>
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div data-ng-include="'templates/partials/charts.html'"></div>
     </ion-content>
 </ion-view>

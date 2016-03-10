@@ -122,6 +122,10 @@ p {
     color: #FFF;
 }
 
-.chart-bg {
+.teal-bg {
     background: #004D40;
+}
+
+.blue-bg {
+    background: #0D47A1;
 }
