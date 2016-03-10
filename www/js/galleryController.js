@@ -25,5 +25,8 @@ povmt.controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMa
         [28, 48, 40, 19, 86, 27, 90]
     ];
 
+    $scope.categorias = ["Trabalhar", "Estudar", "Séries"];
+    $scope.dadosCategorias = [500, 400, 100];
+
 
 });
