@@ -3,7 +3,7 @@
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, AuthService) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout, AuthService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -89,7 +89,9 @@ angular.module('starter.controllers', [])
     };
 
     $scope.logout = function() {
-        AuthService.logout();
+        AuthService.logout(function() {
+            $state.go("app.login")
+        });
     }
 })
 

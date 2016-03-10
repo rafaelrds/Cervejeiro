@@ -9,23 +9,52 @@ povmt.service("AuthService", ["$firebaseArray", "store",
         var firebase = new Firebase(FIREBASE_URI);
 
         this.login = function(callback) {
-            firebase.authWithOAuthPopup(GOOGLE_PROVIDER, function(error, authData) {
-                if (error) {
-                    console.log("Login Failed!", error);
-                } else {
+            firebaseRedirect(callback);
+        };
+
+        function firebaseRedirect(callback) {
+            var auth = firebase.authWithOAuthRedirect(GOOGLE_PROVIDER, function(error) {
+                if (error.code === "TRANSPORT_UNAVAILABLE") {
+                    firebasePopup(callback);
+                }
+            });
+            firebase.onAuth(function(authData) {
+                if (authData) {
                     var google = authData.google
-                    var user = { 
-                        id: google.id, 
-                        nome: google.displayName, 
+                    var user = {
+                        id: google.id,
+                        nome: google.displayName,
                         img: google.profileImageURL,
-                        token: google.accessToken }
+                        token: google.accessToken
+                    }
                     store.set('currentUser', user);
                     if (callback != undefined) {
                         callback();
                     }
                 }
             });
-        };
+
+        }
+
+        function firebasePopup(callback) {
+            firebase.authWithOAuthPopup(GOOGLE_PROVIDER, function(error, authData) {
+                if (error) {
+                    console.log(error)
+                } else {
+                    var google = authData.google
+                    var user = {
+                        id: google.id,
+                        nome: google.displayName,
+                        img: google.profileImageURL,
+                        token: google.accessToken
+                    }
+                    store.set('currentUser', user);
+                    if (callback != undefined) {
+                        callback();
+                    }
+                }
+            });
+        }
 
         this.logout = function(callback) {
             firebase.unauth(function() {

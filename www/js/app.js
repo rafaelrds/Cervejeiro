@@ -34,11 +34,14 @@ angular.module('starter', [
         if (requireLogin && AuthService.isUsuarioUndefined()) {
             event.preventDefault();
             $state.go("app.login")
+        } else if (!requireLogin && !AuthService.isUsuarioUndefined()) {
+            event.preventDefault();
+            $state.go("app.profile")
         }
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider,$httpProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
 
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(0);
@@ -146,7 +149,7 @@ angular.module('starter', [
 .service('APIInterceptor', function($rootScope, AuthService) {
     var service = this;
 
-    service.request = function(config) { 
+    service.request = function(config) {
         var currentUser = AuthService.getUsuarioLogado(),
             access_token = currentUser ? currentUser.access_token : null;
 
