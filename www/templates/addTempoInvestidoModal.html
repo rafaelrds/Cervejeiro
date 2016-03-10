@@ -1,0 +1,33 @@
+<ion-modal-view view-title="Tempo Investido" style="height:100%;">
+    <ion-header-bar style="background-color:#b71c1c;">
+        <h3 class="title-modal">Criar Tempo Investido</h3>
+        <a href="" data-ng-click="closeModal()"><i class="icon ion-close close"></i></a>
+    </ion-header-bar>
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="list ">
+            <label class="item item-input">Quantidade de horas</label>
+            <center> {{ TI.qtdHoras }} </center>
+            <div class="item range">
+                <i class="icon ion-android-remove"></i>
+                <input type="range" min="1" max="24" name="QuantidadeHoras" data-ng-model="TI.qtdHoras">
+                <i class="icon ion-android-add"></i>
+            </div>
+            <label class="item item-input">Data</label>
+            <label class="item item-input">
+                <input type="date" placeholder="Digite a descrição da atividade" data-ng-model="TI.dataTI">
+            </label>
+            <label class="item item-input">Atividade</label>
+            <label class="item item-input">
+                <input type="text" placeholder="Estudar" data-ng-model="TI.atividade">
+            </label>
+        </div>
+        <center>
+            <button ng-show="criando" class="button button-assertive" data-ng-click="salvarTempoInvestido()">
+                Criar
+            </button>
+            <button ng-hide="criando" class="button button-assertive" data-ng-click="atualizarTempoInvestido()">
+                Atualizar
+            </button>
+        </center>
+    </ion-content>
+</ion-modal-view>

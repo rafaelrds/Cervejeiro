@@ -62,20 +62,16 @@ angular.module('starter', [
         }
     })
 
-    .state('app.friends', {
-        url: '/friends',
+    .state('app.tempoInvestido', {
+        url: '/tempoInvestido',
         views: {
             'menuContent': {
-                templateUrl: 'templates/friends.html',
-                controller: 'FriendsCtrl'
+                templateUrl: 'templates/tempoInvestido.html',
+                controller: 'TempoInvestidoCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-friends').classList.toggle('on');
-                    }, 900);
-                }
+                template: '<button data-ng-click="addTempoInvestido()" id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900"><i class="icon ion-plus"></i></button>',
+                controller: 'TempoInvestidoCtrl'
             }
         }
     })
