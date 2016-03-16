@@ -25,7 +25,8 @@ povmt.service("AuthService", ["$firebaseArray", "store",
                         id: google.id,
                         nome: google.displayName,
                         img: google.profileImageURL,
-                        token: google.accessToken
+                        token: google.accessToken,
+                        uid: authData.uid
                     }
                     store.set('currentUser', user);
                     if (callback != undefined) {
@@ -33,7 +34,14 @@ povmt.service("AuthService", ["$firebaseArray", "store",
                     }
                 }
             });
-
+            firebase.onAuth(function(authData) {
+                if (authData) {
+                    firebase.child("users").child(authData.uid).set({
+                        provider: authData.provider,
+                        name: getName(authData)
+                    });
+                }
+            });
         }
 
         function firebasePopup(callback) {
@@ -46,7 +54,8 @@ povmt.service("AuthService", ["$firebaseArray", "store",
                         id: google.id,
                         nome: google.displayName,
                         img: google.profileImageURL,
-                        token: google.accessToken
+                        token: google.accessToken,
+                        uid: authData.uid
                     }
                     store.set('currentUser', user);
                     if (callback != undefined) {
@@ -69,10 +78,17 @@ povmt.service("AuthService", ["$firebaseArray", "store",
             if (store.get('currentUser') != undefined) {
                 return store.get('currentUser');
             }
-        }
+        };
 
         this.isUsuarioUndefined = function() {
             return store.get('currentUser') == undefined;
+        };
+
+        function getName(authData) {
+            switch (authData.provider) {
+                case 'google':
+                    return authData.google.displayName;
+            }
         }
     }
 ]);
