@@ -10,7 +10,6 @@ angular.module('starter', [
     'firebase',
     'ionic-material',
     'ionMdInput',
-    'firebase',
     'chart.js',
     'angular-storage'
 ])
