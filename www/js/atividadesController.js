@@ -6,6 +6,8 @@ povmt.controller('AtividadesCtrl',
         $scope.atividade = { prioridade: 10 };
         $scope.atividades = [];
 
+        $scope.Ti = { tempo:1 };
+
         FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
             $scope.atividades = info;
 
@@ -47,6 +49,39 @@ povmt.controller('AtividadesCtrl',
         $scope.closeModal = function() {
             $scope.modal.hide();
         };
+
+        $scope.add
+
+        $ionicModal.fromTemplateUrl('templates/addTiModal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modalTi = modal;
+        });
+
+        $scope.addTi= function () {
+            $scope.modalTi.show()
+        };
+
+        $scope.salvarTi = function (id) {
+            var uri = $scope.atividade.$id+'/tempoInvestido';
+            console.log(uri);
+            // FirebaseService.getArraySubEntidades("atividades", uri).$loaded().then(function(info) {
+            // $scope.atividades = info;
+
+            // $scope.$parent.showHeader();
+            // $scope.$parent.clearFabs();
+            // $scope.isExpanded = true;
+            // $scope.$parent.setExpanded(true);
+            // $scope.$parent.setHeaderFab('right');
+            // });
+        };
+
+        $scope.closeModalTi = function() {
+            $scope.modalTi.hide();
+        };
+
+        
         //Cleanup the modal when we're done with it!
         $scope.$on('$destroy', function() {
             $scope.modal.remove();
