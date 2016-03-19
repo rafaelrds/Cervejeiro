@@ -1,7 +1,7 @@
-var povmt = angular.module('starter');
+var povmt = angular.module('povmt');
 
-povmt.service("AuthService", ["$firebaseArray", "store",
-    function AuthService($firebaseArray, store) {
+povmt.service("AuthService", ["$firebaseArray", "aiStorage",
+    function AuthService($firebaseArray, aiStorage) {
         var self = this;
 
         var FIREBASE_URI = "https://povmt.firebaseio.com/";
@@ -13,11 +13,6 @@ povmt.service("AuthService", ["$firebaseArray", "store",
         };
 
         function firebaseRedirect(callback) {
-            var auth = firebase.authWithOAuthRedirect(GOOGLE_PROVIDER, function(error) {
-                if (error.code === "TRANSPORT_UNAVAILABLE") {
-                    firebasePopup(callback);
-                }
-            });
             firebase.onAuth(function(authData) {
                 if (authData) {
                     var google = authData.google
@@ -28,10 +23,16 @@ povmt.service("AuthService", ["$firebaseArray", "store",
                         token: google.accessToken,
                         uid: authData.uid
                     }
-                    store.set('currentUser', user);
+                    aiStorage.set('currentUser', user);
                     if (callback != undefined) {
                         callback();
                     }
+                } else {
+                    firebase.authWithOAuthRedirect(GOOGLE_PROVIDER, function(error) {
+                        if (error.code === "TRANSPORT_UNAVAILABLE") {
+                            firebasePopup(callback);
+                        }
+                    });
                 }
             });
             firebase.onAuth(function(authData) {
@@ -57,7 +58,7 @@ povmt.service("AuthService", ["$firebaseArray", "store",
                         token: google.accessToken,
                         uid: authData.uid
                     }
-                    store.set('currentUser', user);
+                    aiStorage.set('currentUser', user);
                     if (callback != undefined) {
                         callback();
                     }
@@ -67,7 +68,7 @@ povmt.service("AuthService", ["$firebaseArray", "store",
 
         this.logout = function(callback) {
             firebase.unauth(function() {
-                store.set('currentUser', undefined);
+                aiStorage.remove('currentUser');
                 if (callback != undefined) {
                     callback();
                 }
@@ -75,13 +76,14 @@ povmt.service("AuthService", ["$firebaseArray", "store",
         };
 
         this.getUsuarioLogado = function() {
-            if (store.get('currentUser') != undefined) {
-                return store.get('currentUser');
+            if (aiStorage.get('currentUser') != null) {
+                return aiStorage.get('currentUser');
+            } else {
             }
         };
 
         this.isUsuarioUndefined = function() {
-            return store.get('currentUser') == undefined;
+            return aiStorage.get('currentUser') == null;
         };
 
         function getName(authData) {

@@ -1,4 +1,4 @@
-var povmt = angular.module('starter');
+var povmt = angular.module('povmt');
 
 povmt.controller('PerfilCtrl',
     function($scope, $stateParams, $state, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService, AuthService) {
@@ -7,6 +7,8 @@ povmt.controller('PerfilCtrl',
         // Set Header
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
+
+        $scope.usuario = AuthService.getUsuarioLogado();
 
         $timeout(function() {
             $scope.$parent.isExpanded = false;

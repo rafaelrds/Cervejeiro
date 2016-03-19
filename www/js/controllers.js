@@ -1,7 +1,4 @@
-/* global angular, document, window */
-'use strict';
-
-angular.module('starter.controllers', [])
+angular.module('povmt', [])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout, AuthService) {
     // Form data for the login modal
