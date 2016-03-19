@@ -5,19 +5,18 @@
     </ion-header-bar>
     <ion-content ng-class="{expanded:isExpanded}">
         <div class="list ">
-        <b>{{atividade.$id}}</b>
         <label class="item item-input">Horas</label>
             <center>
-                <b>{{Ti.tempo}}</b>
+                <b>{{Ti.qtdHoras}}</b>
             </center>
             <div class="item range">
                 <i class="icon ion-android-remove"></i>
-                <input type="range" min="0" max="24" name="Tempo" data-ng-model="Ti.tempo">
+                <input type="range" min="0" max="24" name="Tempo" data-ng-model="Ti.qtdHoras">
                 <i class="icon ion-android-add"></i>
             </div>
         </div>
         <center>
-            <button class="button button-assertive" data-ng-click="salvarTi(atividade.id)">
+            <button class="button button-assertive" data-ng-click="salvarTi(atividade.$id)">
                 Registrar
             </button>
         </center>

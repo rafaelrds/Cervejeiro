@@ -5,8 +5,9 @@ povmt.controller('AtividadesCtrl',
         var self = this;
         $scope.atividade = { prioridade: 10 };
         $scope.atividades = [];
+        $scope.tiAtividades = []
 
-        $scope.Ti = { tempo:1 };
+        $scope.Ti = { qtdHoras:1, dataTI: new Date(2016, 2, 2) };
 
         FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
             $scope.atividades = info;
@@ -17,6 +18,7 @@ povmt.controller('AtividadesCtrl',
             $scope.$parent.setExpanded(true);
             $scope.$parent.setHeaderFab('right');
         });
+
 
         // Activate ink for controller
         ionicMaterialInk.displayEffect();
@@ -50,8 +52,6 @@ povmt.controller('AtividadesCtrl',
             $scope.modal.hide();
         };
 
-        $scope.add
-
         $ionicModal.fromTemplateUrl('templates/addTiModal.html', {
             scope: $scope,
             animation: 'slide-in-up'
@@ -59,22 +59,23 @@ povmt.controller('AtividadesCtrl',
             $scope.modalTi = modal;
         });
 
-        $scope.addTi= function () {
+        $scope.addTi= function (atividade) {
             $scope.modalTi.show()
+            $scope.atividade = atividade;
         };
 
         $scope.salvarTi = function (id) {
-            var uri = $scope.atividade.$id+'/tempoInvestido';
+            var uri = id+'/tempoInvestido';
             console.log(uri);
-            // FirebaseService.getArraySubEntidades("atividades", uri).$loaded().then(function(info) {
-            // $scope.atividades = info;
+            FirebaseService.getArraySubEntidades("atividades", uri).$loaded().then(function(info) {
+            $scope.tiAtividades = info;
+            });
+            console.log($scope.tiAtividades);
+            // $scope.atividades.$add(angular.copy($scope.tiAtividades)).then(function() {
+            //     $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
+            //     $scope.modalTi.hide();
+            // })
 
-            // $scope.$parent.showHeader();
-            // $scope.$parent.clearFabs();
-            // $scope.isExpanded = true;
-            // $scope.$parent.setExpanded(true);
-            // $scope.$parent.setHeaderFab('right');
-            // });
         };
 
         $scope.closeModalTi = function() {
