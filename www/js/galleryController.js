@@ -1,4 +1,4 @@
-var povmt = angular.module('starter');
+var povmt = angular.module('povmt');
 
 povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion',
     function GalleryCtrl($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {

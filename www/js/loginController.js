@@ -1,7 +1,7 @@
-var povmt = angular.module('starter');
+var povmt = angular.module('povmt');
 
 povmt.controller('LoginCtrl',
-    function($scope, $stateParams, $state, $timeout, $ionicLoading, $firebaseAuth,ionicMaterialInk, AuthService) {
+    function($scope, $stateParams, $state, $timeout, $ionicLoading, $firebaseAuth, ionicMaterialInk, AuthService) {
 
         $scope.$parent.clearFabs();
         $timeout(function() {
@@ -11,8 +11,7 @@ povmt.controller('LoginCtrl',
 
         $scope.addUsuarioGoogle = function() {
             AuthService.login(function() {
-            	$state.go("app.profile");
+                $state.go("app.profile");
             })
         }
-
     });

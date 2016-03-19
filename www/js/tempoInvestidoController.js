@@ -1,4 +1,4 @@
-var povmt = angular.module('starter');
+var povmt = angular.module('povmt');
 
 povmt.controller('TempoInvestidoCtrl', 
 		function($scope, $stateParams, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
