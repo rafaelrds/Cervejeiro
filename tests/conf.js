@@ -17,16 +17,15 @@ module.exports = function(config) {
             'www/lib/angular-animate/angular-animate.js',
             'www/lib/Chart.js/Chart.js',
             'www/lib/angular-chart.js/dist/angular-chart.js',
-            'www/lib/angular-mocks/angular-mocks.js',
+            'www/lib/angular-mocks.js',
             'www/lib/angular-sanitize/angular-sanitize.js',
             'www/lib/angular-ui-router/release/angular-ui-router.js',
             'www/lib/firebase/firebase.js',
+            'https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js',
             'www/lib/ionic/js/ionic.bundle.js',
             'www/lib/ionic-material/dist/ionic.material.js',
             'www/lib/ion-md-input/js/ion-md-input.js',
             'www/lib/angular-storage/dist/angular-storage.js',
-
-            // Service's
 
             'www/js/app.js',
 
@@ -37,6 +36,11 @@ module.exports = function(config) {
             'www/js/perfilController.js',
             'www/js/tempoInvestidoController.js',
             'www/js/galleryController.js',
+
+            // Service's
+
+            'www/js/firebaseService.js',
+            'www/js/authService.js',
 
             // TESTES
 
