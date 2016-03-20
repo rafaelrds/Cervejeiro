@@ -3,6 +3,7 @@ var povmt = angular.module('povmt');
 povmt.controller('AtividadesCtrl',
     function($scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
         var self = this;
+
         $scope.atividade = { prioridade: 10 };
         $scope.atividades = [];
         
@@ -65,6 +66,11 @@ povmt.controller('AtividadesCtrl',
 
         $scope.closeModal = function() {
             $scope.modal.hide();
+        };
+
+        $scope.orderByPriority = function(atividade){
+            var MAX_PRIORITY = 10;
+            return MAX_PRIORITY - parseInt(atividade.prioridade);
         };
 
         //Cleanup the modal when we're done with it!
