@@ -1,7 +1,11 @@
 describe('Controllers', function() {
 
     beforeEach(function() {
+<<<<<<< HEAD
+        angular.mock.module('ionic');
+=======
         angular.mock.module('ionic', 'povmt', 'firebase', 'ionic-material', 'angular-storage');
+>>>>>>> karma
     });
 
     // tests start here
@@ -9,6 +13,18 @@ describe('Controllers', function() {
         var getController, $controller, scope, $state, stateParams;
 
         beforeEach(function() {
+<<<<<<< HEAD
+            module('povmt');
+
+            inject(function($rootScope, $controller) {
+                scope = $rootScope.$new();
+                $controller('AtividadesCtrl', {
+                    $scope: scope,
+                    $routeParams: {
+                        add: false
+                    }
+                })
+=======
 
             inject(function($rootScope, $controller, FirebaseService) {
                 scope = $rootScope.$new();
@@ -18,6 +34,7 @@ describe('Controllers', function() {
                 //         add: false
                 //     }
                 // })
+>>>>>>> karma
             })
         });
 

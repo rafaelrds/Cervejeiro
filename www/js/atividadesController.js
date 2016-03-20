@@ -1,7 +1,7 @@
-var povmt = angular.module('starter');
+var povmt = angular.module('povmt');
 
 povmt.controller('AtividadesCtrl',
-    function($scope, $stateParams, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
+    function($scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
         var self = this;
         $scope.atividade = { prioridade: 10 };
         $scope.atividades = [];

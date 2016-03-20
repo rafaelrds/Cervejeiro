@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', [
     'ionic',
-    'starter.controllers',
+    'povmt',
     'firebase',
     'ionic-material',
     'ionMdInput',
@@ -29,13 +29,12 @@ angular.module('starter', [
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
         var requireLogin = toState.data.requireLogin;
-
         if (requireLogin && AuthService.isUsuarioUndefined()) {
             event.preventDefault();
             $state.go("app.login")
         } else if (!requireLogin && !AuthService.isUsuarioUndefined()) {
             event.preventDefault();
-            $state.go("app.profile")
+            $state.go("app.profile");
         }
     });
 })
@@ -165,3 +164,6 @@ angular.module('starter', [
         return response;
     };
 });
+
+angular.module('povmt', []);
+
