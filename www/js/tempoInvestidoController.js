@@ -5,8 +5,8 @@ povmt.controller('TempoInvestidoCtrl',
 
 	var self = this;
 	
-	$scope.TIdefault = { dataTI: new Date(2016, 2, 2), qtdHoras: 1 };
-	$scope.TI = $scope.TIdefault;
+	$scope.TIdefault = { dataTI: new Date(), qtdHoras: 1, atividade: ""};
+	$scope.TI = angular.copy($scope.TIdefault);
 	$scope.TIs = [];
 	$scope.criando = true;
     $scope.$parent.showHeader();
@@ -35,7 +35,7 @@ povmt.controller('TempoInvestidoCtrl',
         $scope.TIs.$add(angular.copy($scope.TI)).then(function() {
             $ionicLoading.show({ template: 'Tempo Investido adicionado!', noBackdrop: true, duration: 2000 });
             $scope.modal.hide();
-            $scope.TI = $scope.TIdefault;
+            $scope.TI = angular.copy($scope.TIdefault);
         });
     };
 
@@ -44,7 +44,7 @@ povmt.controller('TempoInvestidoCtrl',
         $scope.TIs.$save($scope.TI).then(function(ref) {
             $ionicLoading.show({ template: 'Tempo Investido atualizado!', noBackdrop: true, duration: 2000 });
             $scope.modal.hide();
-            $scope.TI = $scope.TIdefault;
+            $scope.TI = angular.copy($scope.TIdefault);
         });
     };
 
