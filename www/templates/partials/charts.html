@@ -1,21 +1,22 @@
 <div class="item card-item">
     <div class="card light-bg ink ink-dark">
         <div class="item ink teal-bg">
-            <h2 class="chart-title">Ativididades durante os anos</h2>
+            <h2 class="chart-title">Última 3 semanas</h2>
         </div>
         <div class="item item-text-wrap">
-            <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels"> chart-series="series"
-            </canvas </div>
+            <canvas id="bar" class="chart chart-bar" chart-data="dadosUltimas3Semanas" chart-labels="labels" chart-series="atividadesUltimas3Semanas" chart-legend="true"> 
+            </canvas>
+            <div id="legendDiv"></div>
         </div>
     </div>
 </div>
 <div class="item card-item">
     <div class="card light-bg ink ink-dark">
         <div class="item ink blue-bg">
-            <h2 class="chart-title">Tempo Investido</h2>
+            <h2 class="chart-title">Semana atual</h2>
         </div>
         <div class="item item-text-wrap">
-            <canvas id="doughnut" class="chart chart-doughnut" chart-data="dadosCategorias" chart-labels="categorias" chart-colours="coresCategorias">
+            <canvas id="doughnut" class="chart chart-doughnut" chart-data="dadosCategorias" chart-labels="categorias" chart-colours="coresCategorias" chart-legend="true">
             </canvas>
         </div>
     </div>
