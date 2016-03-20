@@ -83,10 +83,7 @@ angular.module('starter', [
                 templateUrl: 'templates/TI.html',
                 controller: 'TempoInvestidoCtrl'
             },
-            'fabContent': {
-                template: '<button data-ng-click="addTempoInvestido()" id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900"><i class="icon ion-plus"></i></button>',
-                controller: 'TempoInvestidoCtrl'
-            }
+            'fabContent': {}
         },
         data: {
             requireLogin: true
