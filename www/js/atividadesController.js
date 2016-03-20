@@ -32,6 +32,12 @@ povmt.controller('AtividadesCtrl',
             })
         };
 
+        $scope.updateAtividades = function() {
+            FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
+                $scope.atividades = info;
+            });
+        };
+
         $scope.removeAtividade = function(atividade) {
             $scope.atividades.$remove(atividade).then(function(ref) {
                 $ionicLoading.show({ template: 'Atividade Removida!', noBackdrop: true, duration: 2000 });
@@ -49,6 +55,7 @@ povmt.controller('AtividadesCtrl',
             $scope.atividade = atividade;
         }
         $scope.closeModalPrioridade = function () {
+            $scope.updateAtividades();
             $scope.modalPrioridade.hide();
         };
 
