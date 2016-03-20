@@ -47,6 +47,42 @@ povmt.controller('AtividadesCtrl',
         $scope.closeModal = function() {
             $scope.modal.hide();
         };
+
+        //-------------------------------------------
+
+        $ionicModal.fromTemplateUrl('templates/addTiModal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modalTi = modal;
+        });
+
+        $scope.tiAtividades = []
+
+        $scope.Ti = { qtdHoras: 1, dataTI: new Date() };
+
+        $scope.addTi = function(atividade) {
+            $scope.modalTi.show()
+            $scope.atividade = atividade;
+        };
+
+        $scope.salvarTi = function(id) {
+            var uri = id + '/tempoInvestido';
+            FirebaseService.getArraySubEntidades("atividades", uri).$loaded().then(function(info) {
+                var atividades = info;
+                atividades.$add(angular.copy($scope.Ti)).then(function() {
+                    $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
+                    $scope.modalTi.hide();
+                });
+            });
+
+        };
+
+        $scope.closeModalTi = function() {
+            $scope.modalTi.hide();
+        };
+
+
         //Cleanup the modal when we're done with it!
         $scope.$on('$destroy', function() {
             $scope.modal.remove();

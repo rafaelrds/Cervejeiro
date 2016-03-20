@@ -11,5 +11,13 @@ povmt.service("FirebaseService", ["$firebaseArray", "AuthService",
             var referencia = new Firebase(FIREBASE_URI + nomeEntidade + "/" + userId);
             return $firebaseArray(referencia);
         };
+	
+		this.getArraySubEntidades = function(nomeEntidade, nomeSubEntidade) {
+			var userId = AuthService.getUsuarioLogado().uid;
+			var referencia = new Firebase(FIREBASE_URI + nomeEntidade + "/" + userId + "/" + nomeSubEntidade);
+			return $firebaseArray(referencia);
+       };
     }
+
+
 ]);
