@@ -18,6 +18,4 @@ povmt.service("FirebaseService", ["$firebaseArray", "AuthService",
 			return $firebaseArray(referencia);
        };
     }
-
-
 ]);

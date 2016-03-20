@@ -1,10 +1,10 @@
 <div class="item card-item" class="animate-fade-slide-in" data-ng-repeat="TI in TIs | orderBy:'-dataTI'">
-    <div class="card stable-bg ink ink-dark" ng-click="alterarTempoInvestido(TI)">
+    <div class="card stable-bg ink ink-dark">
         <div class="item item-avatar item-text-wrap">
             <span class="avatar" style="background-image: url('img/activity2.png');"></span>
-            <strong>Fiz</strong> {{TI.atividade}}.
+            <strong>Atividade: </strong>{{TI.atividade}}
             <div class="card-footer text-right">
-                <i class="icon ion-android-delete positive delete" data-ng-click="removerTempoInvestido(TI)"></i>
+                <i class="icon ion-android-delete positive delete" data-ng-click="removerTempoInvestido(TI, $index)"></i>
                 <div class="pull-left">
                     <i class="icon ion-clock"></i> <strong>Durante</strong> {{TI.qtdHoras}} 
                     <strong>horas no dia</strong> {{ milisegundosParaData(TI.dataTI) }}

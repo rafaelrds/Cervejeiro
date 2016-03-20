@@ -59,7 +59,8 @@ povmt.controller('AtividadesCtrl',
 
         $scope.tiAtividades = []
 
-        $scope.Ti = { qtdHoras: 1, dataTI: new Date() };
+        $scope.Tidefault = { qtdHoras: 1 };
+        $scope.Ti = angular.copy($scope.Tidefault);
 
         $scope.addTi = function(atividade) {
             $scope.modalTi.show()
@@ -69,10 +70,13 @@ povmt.controller('AtividadesCtrl',
         $scope.salvarTi = function(id) {
             var uri = id + '/tempoInvestido';
             FirebaseService.getArraySubEntidades("atividades", uri).$loaded().then(function(info) {
-                var atividades = info;
-                atividades.$add(angular.copy($scope.Ti)).then(function() {
+                var tempos = info;
+                $scope.Ti.dataTI = new Date().getTime();
+                $scope.Ti.idAtividade = $scope.atividade.$id;
+                tempos.$add(angular.copy($scope.Ti)).then(function() {
                     $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
                     $scope.modalTi.hide();
+                    $scope.Ti = angular.copy($scope.Tidefault);
                 });
             });
 
