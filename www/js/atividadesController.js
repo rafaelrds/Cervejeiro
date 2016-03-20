@@ -41,6 +41,25 @@ povmt.controller('AtividadesCtrl',
             });
         };
 
+        $ionicModal.fromTemplateUrl('templates/prioridadeModal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modalPrioridade = modal;
+        });
+        $scope.addPrioridade = function(atividade) {
+            $scope.modalPrioridade.show();
+            $scope.atividade = atividade;
+        }
+        $scope.closeModalPrioridade = function () {
+            $scope.modalPrioridade.hide();
+        };
+
+        $scope.salvarPrioridade = function(atividade) {
+            $scope.atividades.$save(atividade);
+            $scope.closeModalPrioridade();
+        };
+
         $ionicModal.fromTemplateUrl('templates/addAtividadeModal.html', {
             scope: $scope,
             animation: 'slide-in-up'
@@ -66,11 +85,9 @@ povmt.controller('AtividadesCtrl',
 
         $scope.salvarTi = function (id) {
             var uri = id+'/tempoInvestido';
-            console.log(uri);
             FirebaseService.getArraySubEntidades("atividades", uri).$loaded().then(function(info) {
             $scope.tiAtividades = info;
             });
-            console.log($scope.tiAtividades);
             // $scope.atividades.$add(angular.copy($scope.tiAtividades)).then(function() {
             //     $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
             //     $scope.modalTi.hide();
