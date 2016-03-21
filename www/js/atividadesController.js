@@ -74,12 +74,11 @@ povmt.controller('AtividadesCtrl',
                 $scope.Ti.dataTI = new Date().getTime();
                 $scope.Ti.idAtividade = $scope.atividade.$id;
                 tempos.$add(angular.copy($scope.Ti)).then(function() {
-                    $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
+                    $ionicLoading.show({ template: 'Tempo investido adicionado!', noBackdrop: true, duration: 2000 });
                     $scope.modalTi.hide();
                     $scope.Ti = angular.copy($scope.Tidefault);
                 });
             });
-
         };
 
         $scope.closeModalTi = function() {

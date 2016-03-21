@@ -52,7 +52,6 @@ povmt.controller('TempoInvestidoCtrl', function(
     };
 
     $scope.salvarTempoInvestido = function() {
-        console.log(">>>>>>>>>>> ", $scope.TI.dataTI)
         $scope.TI.dataTI = new Date().getTime();
 
         if ($scope.TI.idAtividade === '') {
@@ -63,8 +62,9 @@ povmt.controller('TempoInvestidoCtrl', function(
             FirebaseService.getArraySubEntidades("atividades", uri).$loaded().then(function(info) {
                 var tempos = info;
                 tempos.$add(angular.copy($scope.TI)).then(function() {
-                    $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
+                    $ionicLoading.show({ template: 'Tempo investido adicionado!', noBackdrop: true, duration: 2000 });
                     $scope.modal.hide();
+                    $scope.TI = angular.copy($scope.TIdefault);
                     self.atualizaTempos();
                 });
             });
