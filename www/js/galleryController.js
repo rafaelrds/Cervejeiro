@@ -30,9 +30,9 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
         $scope.dadosUltimas3Semanas = [];
 
         //DONUTS
-        $scope.categorias = ["Trabalhar", "Estudar", "Séries"];
-        $scope.dadosCategorias = [500, 400, 100];
-        $scope.coresCategorias = ["#2196F3", "#607D8B", "#FFC107"];
+        $scope.categorias = [];
+        $scope.dadosCategorias = [];
+        $scope.coresCategorias = [];
 
         function calcularUltimos3Domingos() {
             var semanaMilisegundos = 60*60*24*7*1000; // 604800000
@@ -80,6 +80,51 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
             }
         }
 
+        function getMinAndMax(dates) {
+            var result = {};
+            
+            for (var i in dates) {
+                
+                if(!result['max'] || dates[i] > result['max']) {
+                    result['max'] = dates[i];
+                }
+                if(!result['min'] || dates[i] < result['min']) {
+                    result['min'] = dates[i];
+                }
+            }
+            return result;
+        }
+
+        function verificaMesmaSemana(dates) {
+            var minAndMax = getMinAndMax(dates)
+            ,   dayOfWeek = {}
+            dayOfWeek['min'] = minAndMax['min'].getDay();
+            dayOfWeek['max'] = minAndMax['max'].getDay();
+            if(minAndMax['max'] - minAndMax['min'] > 518400000 || dayOfWeek['min'] > dayOfWeek['max']) {
+                return false;
+            }
+            return true;
+        }
+        
+
+        function preencherHistoricoSemanaAtual() {
+            $scope.atividades.forEach(function(atividade) {
+                var tempos = atividade.tempoInvestido;
+                var horasInvestidas = 0;
+                for (var id in tempos) {
+                    var tempo = tempos[id];
+                    var data = new Date(tempo.dataTI);
+                    if(verificaMesmaSemana([new Date(), data])) {
+                        horasInvestidas += parseInt(tempo.qtdHoras);
+                    }   
+                }
+                var randCol = '#'+Math.floor(Math.random()*16777215).toString(16);
+                $scope.categorias.push(atividade.categoria);
+                $scope.coresCategorias.push(randCol);
+                $scope.dadosCategorias.push(horasInvestidas);
+            });
+        }
+
         ($scope.main = function() {
             FirebaseService.getArrayEntidades("tempoInvestido").$loaded().then(function(info) {
                 $scope.TIs = info;
@@ -87,6 +132,12 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
                 pegarAtividadesDasUltimas3Semanas();
                 preencherHistoricoUltimas3Semanas();
             });
+
+            FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
+                $scope.atividades = info;
+                preencherHistoricoSemanaAtual();
+            });
+
         })();
     }
 ]);
