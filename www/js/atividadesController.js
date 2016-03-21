@@ -3,9 +3,10 @@ var povmt = angular.module('povmt');
 povmt.controller('AtividadesCtrl',
     function($scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
         var self = this;
+
         $scope.atividade = { prioridade: 10 };
         $scope.atividades = [];
-
+        
         FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
             $scope.atividades = info;
 
@@ -31,10 +32,36 @@ povmt.controller('AtividadesCtrl',
             })
         };
 
+        $scope.updateAtividades = function() {
+            FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
+                $scope.atividades = info;
+            });
+        };
+
         $scope.removeAtividade = function(atividade) {
             $scope.atividades.$remove(atividade).then(function(ref) {
                 $ionicLoading.show({ template: 'Atividade Removida!', noBackdrop: true, duration: 2000 });
             });
+        };
+
+        $ionicModal.fromTemplateUrl('templates/prioridadeModal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modalPrioridade = modal;
+        });
+        $scope.addPrioridade = function(atividade) {
+            $scope.modalPrioridade.show();
+            $scope.atividade = atividade;
+        }
+        $scope.closeModalPrioridade = function () {
+            $scope.updateAtividades();
+            $scope.modalPrioridade.hide();
+        };
+
+        $scope.salvarPrioridade = function(atividade) {
+            $scope.atividades.$save(atividade);
+            $scope.closeModalPrioridade();
         };
 
         $ionicModal.fromTemplateUrl('templates/addAtividadeModal.html', {
@@ -48,43 +75,10 @@ povmt.controller('AtividadesCtrl',
             $scope.modal.hide();
         };
 
-        //-------------------------------------------
-
-        $ionicModal.fromTemplateUrl('templates/addTiModal.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function(modal) {
-            $scope.modalTi = modal;
-        });
-
-        $scope.tiAtividades = []
-
-        $scope.Tidefault = { qtdHoras: 1 };
-        $scope.Ti = angular.copy($scope.Tidefault);
-
-        $scope.addTi = function(atividade) {
-            $scope.modalTi.show()
-            $scope.atividade = atividade;
+        $scope.orderByPriority = function(atividade){
+            var MAX_PRIORITY = 10;
+            return MAX_PRIORITY - parseInt(atividade.prioridade);
         };
-
-        $scope.salvarTi = function(id) {
-            var uri = id + '/tempoInvestido';
-            FirebaseService.getArraySubEntidades("atividades", uri).$loaded().then(function(info) {
-                var tempos = info;
-                $scope.Ti.dataTI = new Date().getTime();
-                $scope.Ti.idAtividade = $scope.atividade.$id;
-                tempos.$add(angular.copy($scope.Ti)).then(function() {
-                    $ionicLoading.show({ template: 'Tempo investido adicionado!', noBackdrop: true, duration: 2000 });
-                    $scope.modalTi.hide();
-                    $scope.Ti = angular.copy($scope.Tidefault);
-                });
-            });
-        };
-
-        $scope.closeModalTi = function() {
-            $scope.modalTi.hide();
-        };
-
 
         //Cleanup the modal when we're done with it!
         $scope.$on('$destroy', function() {

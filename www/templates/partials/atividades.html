@@ -1,11 +1,11 @@
-<div class="item card-item" class="animate-fade-slide-in button" data-ng-repeat="atividade in atividades | orderBy:'prioridade'" data-ng-click="addTi(atividade)">
-    <div class="card stable-bg ink ink-dark">
+<div class="item card-item" class="animate-fade-slide-in" data-ng-repeat="atividade in atividades  | orderBy:orderByPriority">
+    <div class="card stable-bg ink-dark">
         <div class="item item-avatar item-text-wrap">
             <span class="avatar" style="background-image: url('img/activity2.png');"></span>
             <strong>Preciso</strong> {{atividade.categoria}}.
             <div class="card-footer text-right">
-                <i class="icon ion-arrow-down-b assertive"></i> {{atividade.prioridade}}
-                <i class="icon ion-android-delete positive delete" data-ng-click="removeAtividade(atividade)"></i>
+                <i class="icon ion-arrow-up-b ink assertive" ng-click="addPrioridade(atividade)"></i> {{atividade.prioridade}}
+                <i class="icon ion-android-delete ink positive delete" data-ng-click="removeAtividade(atividade)"></i>
                 <div class="pull-left">
                     <i class="icon ion-clock"></i> {{atividade.descricao}}
                 </div>
