@@ -12,15 +12,11 @@
                 <input type="range" min="1" max="24" name="QuantidadeHoras" data-ng-model="TI.qtdHoras">
                 <i class="icon ion-android-add"></i>
             </div>
-            <div class="list">
-                <label class="item item-input item-select">
-                    <div class="input-label">
-                        Atividade
-                    </div>
-                    <select ng-model="TI.idAtividade">
-                        <option ng-repeat="item in atividades" value="{{item.$id}}">{{item.categoria}}</option>
-                    </select>
-                </label>
+            <label class="item item-input">Atividade</label>
+            <div class="item">
+                <select ng-model="TI.idAtividade">
+                    <option ng-repeat="item in atividades" value="{{item.$id}}">{{item.categoria}}</option>
+                </select>
             </div>
         </div>
         <center>
