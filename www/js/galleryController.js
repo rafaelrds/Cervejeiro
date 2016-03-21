@@ -25,7 +25,7 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
         });
 
         //BAR
-        $scope.labels = ['', 'Semana passada', 'Semana retrasada'];
+        $scope.labels = ['Semana Atual', 'Semana passada', 'Semana retrasada'];
         $scope.atividadesUltimas3Semanas = [];
         $scope.idAtividadesUltimas3Semanas = [];
         $scope.dadosUltimas3Semanas = [];
