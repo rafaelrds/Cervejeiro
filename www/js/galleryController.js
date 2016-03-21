@@ -10,7 +10,7 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
         $scope.$parent.setExpanded(true);
         $scope.$parent.setHeaderFab(false);
 
-        $scope.TIs = [];
+        $scope.TIsAtividade = [];
         $scope.atividades = [];
         $scope.dataDomingos = [];
 
@@ -25,8 +25,9 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
         });
 
         //BAR
-        $scope.labels = ['Essa semana', 'Semana passada', 'Semana retrasada'];
+        $scope.labels = ['Semana Atual', 'Semana passada', 'Semana retrasada'];
         $scope.atividadesUltimas3Semanas = [];
+        $scope.idAtividadesUltimas3Semanas = [];
         $scope.dadosUltimas3Semanas = [];
 
         //DONUTS
@@ -48,33 +49,52 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
             $scope.dataDomingos.push(domingo - 2*semanaMilisegundos);
         }
 
-         function pegarAtividadesDasUltimas3Semanas() {
+        function getAtividadeComId(id) {
+            for(var i = 0; i < $scope.atividades.length; i++) {
+                if($scope.atividades[i].$id == id) {
+                    return $scope.atividades[i].categoria;
+                }
+            }
+        }
+
+        function pegarAtividadesDasUltimas3Semanas() {
             var domingo3semanasAtras = $scope.dataDomingos[$scope.dataDomingos.length-1];
-            for(var i = 0; i < $scope.TIs.length; i++) {
-                if($scope.TIs[i].dataTI > domingo3semanasAtras) {
-                    if($scope.atividadesUltimas3Semanas.indexOf($scope.TIs[i].atividade) == -1) {
-                        $scope.atividadesUltimas3Semanas.push($scope.TIs[i].atividade);
+            for(var i = 0; i < $scope.atividades.length; i++) {
+                var TIsAtividade = $scope.atividades[i].tempoInvestido;
+                for(var chave in TIsAtividade) { 
+                    if(TIsAtividade[chave].dataTI > domingo3semanasAtras) {
+                        var idAtividade = TIsAtividade[chave].idAtividade;
+                        var categoriaAtividade = getAtividadeComId(idAtividade);
+                        if($scope.idAtividadesUltimas3Semanas.indexOf(idAtividade) == -1) {
+                            $scope.idAtividadesUltimas3Semanas.push(idAtividade);
+                            $scope.atividadesUltimas3Semanas.push(categoriaAtividade);
+                        }
                     }
                 }
             }
-         }
+        }
 
-         function inicializaHorasGastasPorAtividadeEmCadaSemana() {
+        function inicializaHorasGastasPorAtividadeEmCadaSemana() {
             for(var i = 0; i <  $scope.atividadesUltimas3Semanas.length; i++) {
                 $scope.dadosUltimas3Semanas.push([0, 0, 0]);
             }
-         }
+            if($scope.atividadesUltimas3Semanas.length == 0) {
+                $scope.dadosUltimas3Semanas.push([0, 0, 0]);
+            }
+        }
 
         function preencherHistoricoUltimas3Semanas() {
             inicializaHorasGastasPorAtividadeEmCadaSemana();
-            for(var i = 0; i < $scope.TIs.length; i++) {
-                for(var j = 0; j < $scope.dataDomingos.length; j++) {
-                    console.log($scope.TIs[i].dataTI);
-                    console.log($scope.dataDomingos[j]);
-                    if($scope.TIs[i].dataTI > $scope.dataDomingos[j]) {
-                        var indexAtividade = $scope.atividadesUltimas3Semanas.indexOf($scope.TIs[i].atividade);
-                        $scope.dadosUltimas3Semanas[indexAtividade][j] += parseInt($scope.TIs[i].qtdHoras);
-                        break;
+            for(var k = 0; k < $scope.atividades.length; k++) {
+                var TIsAtividade = $scope.atividades[k].tempoInvestido;
+                for(var chave in TIsAtividade) {  
+                    var idAtividade = TIsAtividade[chave].idAtividade;
+                    for(var j = 0; j < $scope.dataDomingos.length; j++) {
+                        if(TIsAtividade[chave].dataTI > $scope.dataDomingos[j]) {
+                            var indexAtividade = $scope.idAtividadesUltimas3Semanas.indexOf(TIsAtividade[chave].idAtividade);
+                            $scope.dadosUltimas3Semanas[indexAtividade][j] += parseInt(TIsAtividade[chave].qtdHoras);
+                            break;
+                        }
                     }
                 }
             }
@@ -126,8 +146,8 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
         }
 
         ($scope.main = function() {
-            FirebaseService.getArrayEntidades("tempoInvestido").$loaded().then(function(info) {
-                $scope.TIs = info;
+            FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
+                $scope.atividades = info;
                 calcularUltimos3Domingos();
                 pegarAtividadesDasUltimas3Semanas();
                 preencherHistoricoUltimas3Semanas();
