@@ -145,9 +145,22 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
             });
         }
 
+        function calculaTempoInvestidoTotalPorAtividade(){
+            $scope.atividades.forEach(function(atividade) {
+                var tempoTotal = 0;
+                var tempos = atividade.tempoInvestido;
+                for (var id in tempos) {
+                    tempoTotal += parseInt(tempos[id].qtdHoras);
+                }
+                atividade.tempoTotal = tempoTotal;
+            });   
+        };
+
+
         ($scope.main = function() {
             FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
                 $scope.atividades = info;
+                calculaTempoInvestidoTotalPorAtividade();
                 calcularUltimos3Domingos();
                 pegarAtividadesDasUltimas3Semanas();
                 preencherHistoricoUltimas3Semanas();
