@@ -39,7 +39,7 @@ povmt.service("AuthService", ["$firebaseArray", "aiStorage",
                 if (authData) {
                     firebase.child("users").child(authData.uid).set({
                         provider: authData.provider,
-                        name: getName(authData)
+                        name: self.getName(authData)
                     });
                 }
             });
@@ -66,19 +66,19 @@ povmt.service("AuthService", ["$firebaseArray", "aiStorage",
             });
         }
 
-        this.logout = function(callback) {
-            firebase.unauth(function() {
-                aiStorage.remove('currentUser');
-                if (callback != undefined) {
-                    callback();
-                }
-            });
+        this.removeCache = function() {
+            aiStorage.remove('currentUser');
+        };
+
+        this.logout = function() {
+            return firebase.unauth(self.removeCache);
         };
 
         this.getUsuarioLogado = function() {
             if (aiStorage.get('currentUser') != null) {
                 return aiStorage.get('currentUser');
             } else {
+                return null;
             }
         };
 
@@ -86,7 +86,7 @@ povmt.service("AuthService", ["$firebaseArray", "aiStorage",
             return aiStorage.get('currentUser') == null;
         };
 
-        function getName(authData) {
+        this.getName = function(authData) {
             switch (authData.provider) {
                 case 'google':
                     return authData.google.displayName;

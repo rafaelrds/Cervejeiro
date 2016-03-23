@@ -86,8 +86,8 @@ angular.module('povmt')
     };
 
     $scope.logout = function() {
-        AuthService.logout(function() {
-            $state.go("app.login")
+        AuthService.logout().then(function() {
+            $state.go('app.login')
         });
     }
 })

@@ -9,7 +9,7 @@ module.exports = function(config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine','mocha', 'chai-as-promised', 'chai'],
+        frameworks: ['jasmine', 'mocha', 'chai-as-promised', 'chai', 'sinon-chai'],
 
         // list of files / patterns to load in the browser
         files: [
@@ -20,7 +20,7 @@ module.exports = function(config) {
             'www/lib/angular-mocks.js',
             'www/lib/angular-sanitize/angular-sanitize.js',
             'www/lib/angular-ui-router/release/angular-ui-router.js',
-            'www/lib/firebase/firebase.js',
+            'www/lib/firebase/firebase-debug.js',
             'https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js',
             'www/lib/ionic/js/ionic.bundle.js',
             'www/lib/ionic-material/dist/ionic.material.js',
@@ -91,7 +91,8 @@ module.exports = function(config) {
             require('karma-phantomjs2-launcher'),
             require('karma-mocha'),
             require('karma-chai'),
-            require('karma-chai-as-promised')
+            require('karma-chai-as-promised'),
+            require('karma-sinon-chai')
         ]
     })
 }

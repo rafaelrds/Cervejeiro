@@ -1,17 +1,20 @@
 var povmt = angular.module('povmt');
 
-povmt.controller('LoginCtrl',
-    function($scope, $stateParams, $state, $timeout, $ionicLoading, $firebaseAuth, ionicMaterialInk, AuthService) {
+povmt.controller('LoginCtrl', function(
+    $scope, $stateParams, $state, $timeout, $ionicLoading, $firebaseAuth, ionicMaterialInk, AuthService) {
+    var self = this;
 
-        $scope.$parent.clearFabs();
-        $timeout(function() {
-            $scope.$parent.hideHeader();
-        }, 0);
-        ionicMaterialInk.displayEffect();
+    $scope.$parent.clearFabs();
+    $timeout(function() {
+        $scope.$parent.hideHeader();
+    }, 0);
+    ionicMaterialInk.displayEffect();
 
-        $scope.addUsuarioGoogle = function() {
-            AuthService.login(function() {
-                $state.go("app.profile");
-            })
-        }
-    });
+    this.addUsuarioGoogle = function() {
+        AuthService.login(function() {
+            $state.go("app.profile");
+        })
+    };
+
+    $scope.addUsuarioGoogle = self.addUsuarioGoogle;
+});
