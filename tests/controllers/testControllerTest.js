@@ -13,7 +13,6 @@ describe('Controllers', function() {
         var authService;
 
         beforeEach(function() {
-
             inject(function($rootScope, $controller, $state, AuthService) {
                 scope = $rootScope.$new();
                 authService = AuthService;
