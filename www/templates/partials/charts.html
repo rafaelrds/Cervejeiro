@@ -1,31 +1,10 @@
 <div class="item card-item">
     <div class="card light-bg ink ink-dark">
-    <div class="item ink blue-bg">
-        <h2 class="chart-title">Atividades cadastradas</h2>
-    </div>
-</div>
-<div class="item card-item" class="animate-fade-slide-in" data-ng-repeat="atividade in atividades  | orderBy:tempoTotal">
-    <div class="card light-green-bg ink-dark">
-        <div class="item item-avatar item-text-wrap">
-            <span class="avatar" style="background-image: url('img/activity2.png');"></span>
-            <strong class="card-title">{{atividade.categoria}}</strong>
-            <div class="card-footer text-right">
-                <i class="icon ion-arrow-up-b ink assertive" ng-click="addPrioridade(atividade)"></i>  <strong>Prioridade</strong>
-                {{atividade.prioridade}} 
-                <div class="pull-left">
-                    <i class="icon ion-clock"></i> {{atividade.tempoTotal}} <strong>horas</strong>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="item card-item">
-    <div class="card light-bg ink ink-dark">
         <div class="item ink teal-bg">
             <h2 class="chart-title">Semana atual x Últimas 2 semanas</h2>
         </div>
         <div class="item item-text-wrap">
-            <canvas id="bar" class="chart chart-bar" chart-data="dadosUltimas3Semanas" chart-labels="labels" chart-series="atividadesUltimas3Semanas" chart-legend="true"> 
+            <canvas id="bar" class="chart chart-bar" chart-data="dadosUltimas3Semanas" chart-labels="labels" chart-series="atividadesUltimas3Semanas" chart-legend="true">
             </canvas>
             <div id="legendDiv"></div>
         </div>
@@ -42,4 +21,21 @@
         </div>
     </div>
 </div>
-
+<div class="item card-item">
+    <div class="card light-bg ink ink-dark">
+        <div class="item ink brown-bg">
+            <h2 class="chart-title">Ranking de Atividades</h2>
+        </div>
+        <div class="item-text-wrap item-border item-hover" data-ng-repeat="atividade in atividades  | orderBy:tempoTotal">
+            <div class="item">
+                <strong class="card-title">{{atividade.categoria}}</strong>
+                <div class="text-right">
+                    <i class="icon ion-arrow-up-b ink assertive" ng-click="addPrioridade(atividade)"></i> <strong>Prioridade</strong> {{atividade.prioridade}}
+                    <div class="pull-left">
+                        <i class="icon ion-clock"></i> {{atividade.tempoTotal}} <strong>horas</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
