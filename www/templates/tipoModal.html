@@ -1,11 +1,10 @@
 <ion-modal-view view-title="Atividades" style="height:100%;">
     <ion-header-bar style="background-color:#b71c1c;">
-        <h3 class="title-modal">Criar Atividade</h3>
+        <h3 class="title-modal">Tipo da Atividade</h3>
         <a href="" data-ng-click="closeModalTipo()"><i class="icon ion-close close"></i></a>
     </ion-header-bar>
     <ion-content ng-class="{expanded:isExpanded}">
         <div class="list ">
-            <label class="item item-input">Tipo da Atividade</label>
             <div class="item">
                   <ion-radio data-ng-model="atividade.tipo" data-ng-value="'trabalho'">Trabalho</ion-radio>
                   <ion-radio data-ng-model="atividade.tipo" data-ng-value="'lazer'">Lazer</ion-radio>
