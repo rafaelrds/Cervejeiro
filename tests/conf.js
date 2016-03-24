@@ -21,7 +21,7 @@ module.exports = function(config) {
             'www/lib/angular-sanitize/angular-sanitize.js',
             'www/lib/angular-ui-router/release/angular-ui-router.js',
             'www/lib/firebase/firebase-debug.js',
-            'https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js',
+            'www/lib/angularfire/dist/angularfire.js',
             'www/lib/ionic/js/ionic.bundle.js',
             'www/lib/ionic-material/dist/ionic.material.js',
             'www/lib/ion-md-input/js/ion-md-input.js',
@@ -57,9 +57,18 @@ module.exports = function(config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ['progress', 'coverage'],
 
+        preprocessors: {
+            'www/js/*.js' : ['coverage']
+        },
 
+        // optionally, configure the reporter
+        coverageReporter: {
+            type: 'html',
+            dir: 'coverage/'
+        },
+        
         // web server port
         port: 9876,
 
