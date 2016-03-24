@@ -146,7 +146,6 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
                         if (atividade.tipo==='trabalho') {
                             $scope.dadosTipos[1] += parseInt(tempo.qtdHoras);   
                         }
-                        // horasInvestidas += parseInt(tempo.qtdHoras);
                     }   
                 }
             });
