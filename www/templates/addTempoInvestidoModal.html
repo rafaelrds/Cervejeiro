@@ -1,6 +1,6 @@
 <ion-modal-view view-title="Tempo Investido" style="height:100%;">
     <ion-header-bar style="background-color:#b71c1c;">
-        <h3 class="title-modal">Criar Tempo Investido</h3>
+        <h3 class="title-modal">Criar Tempo Investido {{ ontem ? "Ontem" : "" }}</h3>
         <a href="" data-ng-click="closeModal()"><i class="icon ion-close close"></i></a>
     </ion-header-bar>
     <ion-content ng-class="{expanded:isExpanded}">

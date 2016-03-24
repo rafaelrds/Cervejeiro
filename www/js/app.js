@@ -90,6 +90,23 @@ angular.module('starter', [
         }
     })
 
+    .state('app.tempoInvestidoOntem', {
+        url: '/tempoInvestidoOntem',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/TI.html',
+                controller: 'TempoInvestidoCtrl'
+            },
+            'fabContent': {}
+        },
+        data: {
+            requireLogin: true
+        },
+        params: {
+            ontem: true
+        }
+    })
+
     .state('app.gallery', {
         url: '/gallery',
         views: {

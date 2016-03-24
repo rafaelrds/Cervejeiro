@@ -1,7 +1,7 @@
 var povmt = angular.module('povmt');
 
 povmt.controller('TempoInvestidoCtrl', function(
-    $scope, $ionicModal, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
+    $scope, $ionicModal, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService, $stateParams) {
 
     var self = this;
 
@@ -44,15 +44,21 @@ povmt.controller('TempoInvestidoCtrl', function(
         return ("0" + data.getDate()).slice(-2) + "/" + ("0" + (data.getMonth() + 1)).slice(-2) + "/" + data.getFullYear();
     };
 
-    $scope.addTempoInvestido = function() {
+    $scope.addTempoInvestido = function(ontem) {
         FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
             $scope.atividades = info;
         });
         $scope.modal.show();
+        $scope.ontem = ontem;
     };
 
     $scope.salvarTempoInvestido = function() {
         $scope.TI.dataTI = new Date().getTime();
+        var diaEmMilisegundos = 24*60*60*1000;
+
+        if($scope.ontem) {
+            $scope.TI.dataTI -= diaEmMilisegundos;
+        }
 
         if ($scope.TI.idAtividade === '') {
             $ionicLoading.show({ template: 'Selecione uma atividade!', noBackdrop: true, duration: 2000 });
@@ -66,12 +72,16 @@ povmt.controller('TempoInvestidoCtrl', function(
                     $scope.modal.hide();
                     $scope.TI = angular.copy($scope.TIdefault);
                     self.atualizaTempos();
+                    if ($scope.ontem) {
+                        setTimeout(function(){
+                        $scope.addTempoInvestido(true) }, 2000);
+                    }
                 });
             });
         }
     };
 
-    $ionicModal.fromTemplateUrl('templates/addTempoInvestidoModal.html', {
+    $scope.modalPromise = $ionicModal.fromTemplateUrl('templates/addTempoInvestidoModal.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function(modal) {
@@ -112,5 +122,11 @@ povmt.controller('TempoInvestidoCtrl', function(
 
     ($scope.main = function() {
         self.atualizaTempos();
+        if($stateParams.ontem) {
+            $scope.ontem = $stateParams.ontem;
+            $scope.modalPromise.then(function() { 
+                $scope.addTempoInvestido(true);
+            });
+        }
     })();
 });
