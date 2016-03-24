@@ -141,7 +141,6 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
                     var data = new Date(tempo.dataTI);
                     if(verificaMesmaSemana([new Date(), data])) {
                         if (atividade.tipo==='lazer') {
-                            console.log(atividade.tipo);
                             $scope.dadosTipos[0] += parseInt(tempo.qtdHoras);
                         }
                         if (atividade.tipo==='trabalho') {
