@@ -13,6 +13,7 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
         $scope.TIsAtividade = [];
         $scope.atividades = [];
         $scope.dataDomingos = [];
+        $scope.listaAtividades = [];
 
         // Activate ink for controller
         ionicMaterialInk.displayEffect();
@@ -146,7 +147,7 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
         }
 
         function calculaTempoInvestidoTotalPorAtividade(){
-            $scope.atividades.forEach(function(atividade) {
+            $scope.atividadesTemporario.forEach(function(atividade) {
                 var tempoTotal = 0;
                 var tempos = atividade.tempoInvestido;
                 for (var id in tempos) {
@@ -156,10 +157,30 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
             });   
         };
 
+        $scope.adicionarAtividade = function(atividade){
+            if($scope.listaAtividades.indexOf(atividade) !== -1){
+                var indice = $scope.listaAtividades.indexOf(atividade);
+                $scope.listaAtividades.splice(indice,1);
+            } else {
+                $scope.listaAtividades.push(atividade);
+            }
+            $scope.atividades = $scope.listaAtividades;
+            $scope.atividadesUltimas3Semanas = [];
+            $scope.idAtividadesUltimas3Semanas = [];
+            $scope.dadosUltimas3Semanas = [];
+            $scope.categorias = [];
+            $scope.dadosCategorias = [];
+            $scope.coresCategorias = [];
+            calcularUltimos3Domingos();
+            pegarAtividadesDasUltimas3Semanas();
+            preencherHistoricoUltimas3Semanas();
+            preencherHistoricoSemanaAtual();
+        };
 
         ($scope.main = function() {
             FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
                 $scope.atividades = info;
+                $scope.atividadesTemporario = info;
                 calculaTempoInvestidoTotalPorAtividade();
                 calcularUltimos3Domingos();
                 pegarAtividadesDasUltimas3Semanas();
@@ -168,6 +189,8 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
 
             FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
                 $scope.atividades = info;
+                $scope.atividadesTemporario = info;
+
                 preencherHistoricoSemanaAtual();
             });
 
