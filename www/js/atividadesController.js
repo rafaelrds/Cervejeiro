@@ -66,6 +66,28 @@ povmt.controller('AtividadesCtrl', function(
         $scope.closeModalPrioridade();
     };
 
+    $ionicModal.fromTemplateUrl('templates/tipoModal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modalTipo = modal;
+    });
+
+    $scope.addTipo = function(atividade) {
+        $scope.modalTipo.show();
+        $scope.atividade = atividade;
+    }
+
+    $scope.closeModalTipo = function() {
+        $scope.updateAtividades();
+        $scope.modalTipo.hide();
+    };
+
+    $scope.salvarTipo = function (atividade) {
+        $scope.atividades.$save(atividade);
+        $scope.closeModalTipo();  
+    }
+
     $ionicModal.fromTemplateUrl('templates/addAtividadeModal.html', {
         scope: $scope,
         animation: 'slide-in-up'
