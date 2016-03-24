@@ -35,6 +35,11 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
         $scope.dadosCategorias = [];
         $scope.coresCategorias = [];
 
+        //PIES
+        $scope.dadosTipos = [0, 0];
+        $scope.tipos =  ['Lazer', 'Trabalho'];
+        $scope.coresTipos = ['#00ccff', '#ff3300'];
+
         function calcularUltimos3Domingos() {
             var semanaMilisegundos = 60*60*24*7*1000; // 604800000
             var hoje = new Date(), domingo = new Date();
@@ -126,6 +131,26 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
             return true;
         }
         
+        function preencherTiposSemanaAtual() {
+            $scope.atividades.forEach(function(atividade) {
+                var tempos = atividade.tempoInvestido;
+                var horasInvestidas = 0;
+                for (var id in tempos) {
+                    var tempo = tempos[id];
+                    var data = new Date(tempo.dataTI);
+                    if(verificaMesmaSemana([new Date(), data])) {
+                        if (atividade.tipo==='lazer') {
+                            console.log(atividade.tipo);
+                            $scope.dadosTipos[0] += parseInt(tempo.qtdHoras);
+                        }
+                        if (atividade.tipo==='trabalho') {
+                            $scope.dadosTipos[1] += parseInt(tempo.qtdHoras);   
+                        }
+                        // horasInvestidas += parseInt(tempo.qtdHoras);
+                    }   
+                }
+            });
+        }        
 
         function preencherHistoricoSemanaAtual() {
             $scope.atividades.forEach(function(atividade) {
@@ -164,6 +189,7 @@ povmt.controller('GalleryCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMat
                 calcularUltimos3Domingos();
                 pegarAtividadesDasUltimas3Semanas();
                 preencherHistoricoUltimas3Semanas();
+                preencherTiposSemanaAtual();
             });
 
             FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {

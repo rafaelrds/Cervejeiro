@@ -5,7 +5,7 @@ povmt.controller('AtividadesCtrl', function(
     
     var self = this;
 
-    $scope.atividade = { prioridade: 10 };
+    $scope.atividade = { prioridade: 10, tipo : '' };
     $scope.atividades = [];
 
     FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {

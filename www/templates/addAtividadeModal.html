@@ -22,6 +22,10 @@
                 <input type="range" min="0" max="10" name="Prioridade" data-ng-model="atividade.prioridade">
                 <i class="icon ion-android-add"></i>
             </div>
+            <div class="item">
+                  <ion-radio data-ng-model="atividade.tipo" data-ng-value="'trabalho'">Trabalho</ion-radio>
+                  <ion-radio data-ng-model="atividade.tipo" data-ng-value="'lazer'">Lazer</ion-radio>
+            </div>
         </div>
         <center>
             <button class="button button-assertive" data-ng-click="salvarAtividade()">
