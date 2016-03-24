@@ -1,7 +1,8 @@
 var povmt = angular.module('povmt');
 
 povmt.controller('TempoInvestidoCtrl', function(
-    $scope, $ionicModal, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService, $stateParams) {
+    $scope, $ionicModal, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService, $stateParams,
+    $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService) {
 
     var self = this;
 
@@ -10,6 +11,7 @@ povmt.controller('TempoInvestidoCtrl', function(
     $scope.TIs = [];
 
     $scope.atividades = [];
+    $scope.atividade = {};
 
     $scope.criando = true;
 
@@ -18,6 +20,40 @@ povmt.controller('TempoInvestidoCtrl', function(
     $scope.isExpanded = true;
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab('right');
+
+    $scope.addMidia = function() {
+        $scope.hideSheet = $ionicActionSheet.show({
+            buttons: [
+                { text: 'Tirar Foto' },
+                { text: 'Abrir Galeria de Fotos' }
+            ],
+            titleText: 'Adicionar Imagem',
+            cancelText: 'Cancelar',
+            buttonClicked: function(index) {
+                $scope.addImagem(index);
+            }
+        });
+    };
+
+    $scope.addImagem = function(type) {
+        $scope.hideSheet();
+        ImageService.manejaMidiaDialog(type).then(function(imagem) {
+            $scope.atividade.imagem = imagem;
+            $scope.$apply();
+        });
+    };
+
+    this.salvarAtividade = function() {
+        var imagem = FileService.imagem();
+        $scope.atividade.imagem = imagem;
+        $scope.atividades.$save($scope.atividade).then(function() {
+            $ionicLoading.show({ template: 'Atividade Atualizada!', noBackdrop: true, duration: 2000 });
+        })
+    };
+
+    $scope.bindAtividade = function(atividade) {
+        $scope.atividade = $scope.atividades.$getRecord($scope.TI.idAtividade);
+    };
 
     $scope.alterarTempoInvestido = function(TI) {
         TI.dataTI = new Date(TI.dataTI);
@@ -54,9 +90,9 @@ povmt.controller('TempoInvestidoCtrl', function(
 
     $scope.salvarTempoInvestido = function() {
         $scope.TI.dataTI = new Date().getTime();
-        var diaEmMilisegundos = 24*60*60*1000;
+        var diaEmMilisegundos = 24 * 60 * 60 * 1000;
 
-        if($scope.ontem) {
+        if ($scope.ontem) {
             $scope.TI.dataTI -= diaEmMilisegundos;
         }
 
@@ -68,13 +104,15 @@ povmt.controller('TempoInvestidoCtrl', function(
             FirebaseService.getArraySubEntidades("atividades", uri).$loaded().then(function(info) {
                 var tempos = info;
                 tempos.$add(angular.copy($scope.TI)).then(function() {
+                    self.salvarAtividade();
                     $ionicLoading.show({ template: 'Tempo investido adicionado!', noBackdrop: true, duration: 2000 });
                     $scope.modal.hide();
                     $scope.TI = angular.copy($scope.TIdefault);
                     self.atualizaTempos();
                     if ($scope.ontem) {
-                        setTimeout(function(){
-                        $scope.addTempoInvestido(true) }, 2000);
+                        setTimeout(function() {
+                            $scope.addTempoInvestido(true)
+                        }, 2000);
                     }
                 });
             });
@@ -122,9 +160,9 @@ povmt.controller('TempoInvestidoCtrl', function(
 
     ($scope.main = function() {
         self.atualizaTempos();
-        if($stateParams.ontem) {
+        if ($stateParams.ontem) {
             $scope.ontem = $stateParams.ontem;
-            $scope.modalPromise.then(function() { 
+            $scope.modalPromise.then(function() {
                 $scope.addTempoInvestido(true);
             });
         }

@@ -45,13 +45,17 @@ angular.module('starter')
     }
 
     function salvaMidia(type) {
-        return $q(function(resolve, reject) {
-            var options = opcoesTipo(type);
+        var deferred = $q.defer();
+        var options = opcoesTipo(type);
 
-            $cordovaCamera.getPicture(options).then(function(imageBase64) {
-                FileService.armazenaImagem(imageBase64);
-            });
-        })
+        $cordovaCamera.getPicture(options).then(function(imageBase64) {
+            FileService.armazenaImagem(imageBase64);
+            deferred.resolve(imageBase64)
+        }, function(error) {
+            deferred.reject(error);
+        });
+        
+        return deferred.promise;
     }
     return {
         manejaMidiaDialog: salvaMidia

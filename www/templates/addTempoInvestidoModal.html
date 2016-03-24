@@ -14,12 +14,16 @@
             </div>
             <label class="item item-input">Atividade</label>
             <div class="item">
-                <select ng-model="TI.idAtividade">
+                <select ng-model="TI.idAtividade" data-ng-change="bindAtividade()">
                     <option ng-repeat="item in atividades" value="{{item.$id}}">{{item.categoria}}</option>
                 </select>
             </div>
+            <div class="app-icon" data-ng-show="atividade.imagem" style="background-image: url(data:image/png;base64,{{atividade.imagem}});"></div>
         </div>
         <center>
+            <button class="button button-positive" ng-click="addMidia()" data-ng-show="TI.idAtividade != ''">
+                Adicionar Imagem
+            </button>
             <button data-ng-show="criando" class="button button-assertive" data-ng-click="salvarTempoInvestido()">
                 Criar
             </button>

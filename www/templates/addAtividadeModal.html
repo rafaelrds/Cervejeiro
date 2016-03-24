@@ -5,7 +5,7 @@
     </ion-header-bar>
     <ion-content ng-class="{expanded:isExpanded}">
         <div class="list ">
-            <label class="item item-input">Categoria</label>
+            <label class="item item-input">Título</label>
             <label class="item item-input">
                 <input type="text" placeholder="Estudar" data-ng-model="atividade.categoria">
             </label>
@@ -27,10 +27,6 @@
                   <ion-radio data-ng-model="atividade.tipo" data-ng-value="'lazer'">Lazer</ion-radio>
             </div>
         </div>
-        <span data-ng-show="atividade.imagem" class="avatar" style="background-image: url(data:image/png;base64,{{atividade.imagem}});"></span>
-        <button class="button button-full button-positive" ng-click="addMidia()">
-            Adicionar Imagem
-        </button>
         <center>
             <button class="button button-assertive" data-ng-click="salvarAtividade()">
                 Criar
