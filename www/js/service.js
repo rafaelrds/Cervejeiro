@@ -1,7 +1,6 @@
 angular.module('starter')
  
 .factory('FileService', function() {
-  var images;
   var IMAGE_STORAGE_KEY = 'dav-images';
   var imagem = null;
 
@@ -9,7 +8,7 @@ angular.module('starter')
     return imagem;
   };
  
-  function addImage(img) {
+  function adicionaImagem(img) {
     imagem = img;
 
     window.localStorage.setItem(IMAGE_STORAGE_KEY, JSON.stringify(img));
@@ -17,26 +16,26 @@ angular.module('starter')
  
   return {
     imagem: getImagem,
-    storeImage: addImage,
+    armazenaImagem: adicionaImagem,
   }
 })
 
 .factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile) {
     
-  function optionsForType(type) {
-    var source;
+  function opcoesTipo(type) {
+    var src;
     switch (type) {
       case 0:
-        source = Camera.PictureSourceType.CAMERA;
+        src = Camera.PictureSourceType.CAMERA;
         break;
       case 1:
-        source = Camera.PictureSourceType.PHOTOLIBRARY;
+        src = Camera.PictureSourceType.PHOTOLIBRARY;
         break;
     }
     return {
     quality: 90,
       destinationType: Camera.DestinationType.DATA_URL,
-      sourceType: source,
+      sourceType: src,
       allowEdit: false,
       encodingType: Camera.EncodingType.JPEG,
       popoverOptions: CameraPopoverOptions,
@@ -45,16 +44,16 @@ angular.module('starter')
     };
   }
  
-  function saveMedia(type) {
+  function salvaMidia(type) {
     return $q(function(resolve, reject) {
-      var options = optionsForType(type);
+      var options = opcoesTipo(type);
 
       $cordovaCamera.getPicture(options).then(function(imageBase64) {
-      FileService.storeImage(imageBase64);
+      FileService.armazenaImagem(imageBase64);
     });
     })
   }
   return {
-    handleMediaDialog: saveMedia
+    manejaMidiaDialog: salvaMidia
   }
 });

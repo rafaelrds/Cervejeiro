@@ -26,7 +26,7 @@ povmt.controller('AtividadesCtrl', function(
         $scope.modal.show();
     };
 
-    $scope.addMedia = function() {
+    $scope.addMidia = function() {
         $scope.hideSheet = $ionicActionSheet.show({
             buttons: [
                 { text: 'Take photo' },
@@ -35,14 +35,14 @@ povmt.controller('AtividadesCtrl', function(
             titleText: 'Add images',
             cancelText: 'Cancel',
             buttonClicked: function(index) {
-                $scope.addImage(index);
+                $scope.addImagem(index);
             }
         });
     };
 
-    $scope.addImage = function(type) {
+    $scope.addImagem = function(type) {
         $scope.hideSheet();
-        ImageService.handleMediaDialog(type).then(function() {
+        ImageService.manejaMidiaDialog(type).then(function() {
             $scope.$apply();
         });
     };
