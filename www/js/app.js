@@ -11,7 +11,8 @@ angular.module('starter', [
     'ionic-material',
     'ionMdInput',
     'chart.js',
-    'angular-storage'
+    'angular-storage',
+    'ngCordova'
 ])
 
 .run(function($rootScope, $ionicPlatform, $state, $location, AuthService) {

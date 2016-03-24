@@ -1,11 +1,12 @@
 var povmt = angular.module('povmt');
 
 povmt.controller('AtividadesCtrl', function(
-    $scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService) {
+    $scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService,
+    $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService) {
     
     var self = this;
 
-    $scope.atividade = { prioridade: 10 };
+    $scope.atividade = { prioridade: 10, imagem: "" };
     $scope.atividades = [];
 
     FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
@@ -25,7 +26,32 @@ povmt.controller('AtividadesCtrl', function(
         $scope.modal.show();
     };
 
+    $scope.addMedia = function() {
+        $scope.hideSheet = $ionicActionSheet.show({
+            buttons: [
+                { text: 'Take photo' },
+                { text: 'Photo from library' }
+            ],
+            titleText: 'Add images',
+            cancelText: 'Cancel',
+            buttonClicked: function(index) {
+                $scope.addImage(index);
+            }
+        });
+    };
+
+    $scope.addImage = function(type) {
+        $scope.hideSheet();
+        ImageService.handleMediaDialog(type).then(function() {
+            $scope.$apply();
+        });
+    };
+
     $scope.salvarAtividade = function() {
+        var imagem = FileService.imagem();
+
+        $scope.atividade.imagem = imagem;
+
         $scope.atividades.$add(angular.copy($scope.atividade)).then(function() {
             $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
             $scope.modal.hide();
