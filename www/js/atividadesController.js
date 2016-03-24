@@ -29,11 +29,11 @@ povmt.controller('AtividadesCtrl', function(
     $scope.addMidia = function() {
         $scope.hideSheet = $ionicActionSheet.show({
             buttons: [
-                { text: 'Take photo' },
-                { text: 'Photo from library' }
+                { text: 'Tirar Foto' },
+                { text: 'Abrir Galeria de Fotos' }
             ],
-            titleText: 'Add images',
-            cancelText: 'Cancel',
+            titleText: 'Adicionar Imagem',
+            cancelText: 'Cancelar',
             buttonClicked: function(index) {
                 $scope.addImagem(index);
             }

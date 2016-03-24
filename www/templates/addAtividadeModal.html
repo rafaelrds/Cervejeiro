@@ -23,8 +23,9 @@
                 <i class="icon ion-android-add"></i>
             </div>
         </div>
-        <button class="button button-full button-energized" ng-click="addMidia()">
-            Add image
+        <span data-ng-show="atividade.imagem" class="avatar" style="background-image: url(data:image/png;base64,{{atividade.imagem}});"></span>
+        <button class="button button-full button-positive" ng-click="addMidia()">
+            Adicionar Imagem
         </button>
         <center>
             <button class="button button-assertive" data-ng-click="salvarAtividade()">
