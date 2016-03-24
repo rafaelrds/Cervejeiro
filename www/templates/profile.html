@@ -17,9 +17,13 @@
             <a data-ng-click="toggle('charts')" class="tab-item">
                 <i class="icon ion-pie-graph"></i> Relatórios
             </a>
+            <a data-ng-click="toggle('semanaAtual')" class="tab-item">
+                <i class="icon ion-calendar"></i> Semana Atual
+            </a>
         </div>
         <div data-ng-show="isTabAtual('atividades')" data-ng-include="'templates/partials/atividades.html'" data-ng-controller="AtividadesCtrl"></div>
         <div data-ng-show="isTabAtual('tempoInvestido')" data-ng-include="'templates/partials/tempoInvestido.html'" data-ng-controller="TempoInvestidoCtrl"></div>
         <div data-ng-show="isTabAtual('charts')" data-ng-include="'templates/partials/charts.html'" data-ng-controller="GalleryCtrl"></div>
+        <div data-ng-show="isTabAtual('semanaAtual')" data-ng-include="'templates/partials/semanaAtual.html'" data-ng-controller="GalleryCtrl"></div>
     </ion-content>
 </ion-view>
