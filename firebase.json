@@ -1,5 +1,5 @@
 {
-  "firebase": "povmt",
+  "firebase": "cervejeiro",
   "public": "www",
   "ignore": [
     "firebase.json",
