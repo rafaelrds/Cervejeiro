@@ -1,12 +1,8 @@
-# POvMT
+# Cervejeiro
 
-Para onde vai meu tempo
-
-Projeto de LES - 2015.2
+Projeto 1 - 2016.1
 
 Integrantes:
 André L. Abrantes
-Ana Luiz Motta
 Rafael da Silva
-Remy de Fru
-Maysa Macedo
+Uian Sol Gorgônio
