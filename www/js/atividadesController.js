@@ -1,4 +1,4 @@
-var povmt = angular.module('povmt');
+var povmt = angular.module('cervejeiro');
 
 povmt.controller('AtividadesCtrl', function(
     $scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService,

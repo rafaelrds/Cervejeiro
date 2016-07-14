@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', [
     'ionic',
-    'povmt',
+    'cervejeiro',
     'firebase',
     'ionic-material',
     'ionMdInput',
@@ -77,51 +77,6 @@ angular.module('starter', [
         }
     })
 
-    .state('app.tempoInvestido', {
-        url: '/tempoInvestido',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/TI.html',
-                controller: 'TempoInvestidoCtrl'
-            },
-            'fabContent': {}
-        },
-        data: {
-            requireLogin: true
-        }
-    })
-
-    .state('app.tempoInvestidoOntem', {
-        url: '/tempoInvestidoOntem',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/TI.html',
-                controller: 'TempoInvestidoCtrl'
-            },
-            'fabContent': {}
-        },
-        data: {
-            requireLogin: true
-        },
-        params: {
-            ontem: true
-        }
-    })
-
-    .state('app.gallery', {
-        url: '/gallery',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/gallery.html',
-                controller: 'GalleryCtrl'
-            },
-            'fabContent': {}
-        },
-        data: {
-            requireLogin: true
-        }
-    })
-
     .state('app.login', {
         url: '/login',
         views: {
@@ -180,5 +135,5 @@ angular.module('starter', [
     };
 });
 
-angular.module('povmt', []);
+angular.module('cervejeiro', []);
 

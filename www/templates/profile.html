@@ -4,26 +4,23 @@
             <div class="content">
                 <div class="avatar" style="background: url('{{usuario.img}}') #FFF; background-size: cover; box-shadow: 0px 0px 10px #fff;"></div>
                 <h3><a class="light">Meu Perfil</a></h3>
-                <h4>Para onde vai meu tempo?</h4>
+                <h4>Cervejeiro</h4>
             </div>
         </div>
         <div class="tabs tabs-dark tabs-icon-top static">
             <a data-ng-click="toggle('atividades')" class="tab-item">
-                <i class="icon ion-arrow-graph-up-right"></i> Atividades
+                <i class="icon ion-arrow-graph-up-right"></i> Atividade
             </a>
             <a data-ng-click="toggle('tempoInvestido')" class="tab-item">
-                <i class="icon ion-clock"></i> Tempo Investido
+                <i class="icon ion-clock"></i> Menu 2
             </a>
             <a data-ng-click="toggle('charts')" class="tab-item">
-                <i class="icon ion-pie-graph"></i> Relatórios
+                <i class="icon ion-pie-graph"></i> Menu 3
             </a>
             <a data-ng-click="toggle('semanaAtual')" class="tab-item">
-                <i class="icon ion-calendar"></i> Semana Atual
+                <i class="icon ion-calendar"></i> Menu 4
             </a>
         </div>
         <div data-ng-show="isTabAtual('atividades')" data-ng-include="'templates/partials/atividades.html'" data-ng-controller="AtividadesCtrl"></div>
-        <div data-ng-show="isTabAtual('tempoInvestido')" data-ng-include="'templates/partials/tempoInvestido.html'" data-ng-controller="TempoInvestidoCtrl"></div>
-        <div data-ng-show="isTabAtual('charts')" data-ng-include="'templates/partials/charts.html'" data-ng-controller="GalleryCtrl"></div>
-        <div data-ng-show="isTabAtual('semanaAtual')" data-ng-include="'templates/partials/semanaAtual.html'" data-ng-controller="GalleryCtrl"></div>
     </ion-content>
 </ion-view>

@@ -1,4 +1,4 @@
-var povmt = angular.module('povmt');
+var povmt = angular.module('cervejeiro');
 
 povmt.controller('LoginCtrl', function(
     $scope, $stateParams, $state, $timeout, $ionicLoading, $firebaseAuth, ionicMaterialInk, AuthService) {

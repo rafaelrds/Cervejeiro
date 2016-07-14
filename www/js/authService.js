@@ -1,4 +1,4 @@
-var povmt = angular.module('povmt');
+var povmt = angular.module('cervejeiro');
 
 povmt.service("AuthService", ["$firebaseArray", "aiStorage",
     function AuthService($firebaseArray, aiStorage) {

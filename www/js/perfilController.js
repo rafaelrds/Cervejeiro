@@ -1,4 +1,4 @@
-var povmt = angular.module('povmt');
+var povmt = angular.module('cervejeiro');
 
 povmt.controller('PerfilCtrl',
     function($scope, $stateParams, $state, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService, AuthService) {
@@ -24,7 +24,7 @@ povmt.controller('PerfilCtrl',
         });
 
 
-        $scope.tabAtual = 'charts';
+        $scope.tabAtual = 'atividades';
         $scope.isTabAtual = function(entidade) {
             return $scope.tabAtual === entidade;
         }
