@@ -69,15 +69,15 @@ p {
 ==================================*/
 
 .app-icon {
-    opacity: 0.9;
+    opacity: 0.8;
     background: url('../img/icon.png') #FFF center;
     background-size: cover;
     border-radius: 50%;
-    border: 2px solid #FFF;
-    height: 125px;
+    border: 2px solid #fff;
+    height: 150px;
     margin: auto;
-    width: 125px;
-    box-shadow: 0 0 50px #FFF;
+    width: 150px;
+    /*box-shadow: 0 0 50px #ccc; */
 }
 
 .social-login {
