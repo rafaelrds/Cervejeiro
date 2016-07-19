@@ -1,6 +1,6 @@
-var povmt = angular.module('cervejeiro');
+var cvj = angular.module('cervejeiro');
 
-povmt.controller('LoginCtrl', function(
+cvj.controller('LoginCtrl', function(
     $scope, $stateParams, $state, $timeout, $ionicLoading, $firebaseAuth, ionicMaterialInk, AuthService) {
     var self = this;
 

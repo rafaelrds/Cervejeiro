@@ -1,10 +1,10 @@
-var povmt = angular.module('cervejeiro');
+var cvj = angular.module('cervejeiro');
 
-povmt.service("AuthService", ["$firebaseArray", "aiStorage",
+cvj.service("AuthService", ["$firebaseArray", "aiStorage",
     function AuthService($firebaseArray, aiStorage) {
         var self = this;
 
-        var FIREBASE_URI = "https://povmt.firebaseio.com/";
+        var FIREBASE_URI = "https://cervejeiro-b2425.firebaseio.com/";
         var GOOGLE_PROVIDER = "google";
         var firebase = new Firebase(FIREBASE_URI);
 
