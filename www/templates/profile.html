@@ -8,19 +8,14 @@
             </div>
         </div>
         <div class="tabs bar-energized tabs-icon-top static">
-            <a data-ng-click="toggle('atividades')" class="tab-item">
-                <i class="icon ion-arrow-graph-up-right"></i> Atividade
-            </a>
             <a data-ng-click="toggle('cervejas')" class="tab-item">
                 <i class="icon ion-beer"></i> Cervejas
             </a>
-            <a data-ng-click="toggle('charts')" class="tab-item">
-                <i class="icon ion-pie-graph"></i> Menu 3
-            </a>
-            <a data-ng-click="toggle('semanaAtual')" class="tab-item">
-                <i class="icon ion-calendar"></i> Menu 4
+            <a data-ng-click="toggle('favoritas')" class="tab-item">
+                <i class="icon ion-star"></i> Favoritas
             </a>
         </div>
         <div data-ng-show="isTabAtual('cervejas')" data-ng-include="'templates/partials/cervejas.html'" data-ng-controller="CervejasCtrl"></div>
+        <div data-ng-show="isTabAtual('favoritas')" data-ng-include="'templates/partials/favoritas.html'" data-ng-controller="CervejasCtrl"></div>
     </ion-content>
 </ion-view>

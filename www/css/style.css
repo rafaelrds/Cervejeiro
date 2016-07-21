@@ -216,3 +216,8 @@ select:focus {
     border-top: 0.375em solid rgba(0, 0, 0, 0.12);
     pointer-events: none;
 }
+
+.favorite {
+    font-size: 20px;
+    text-shadow: 0.5px 0.5px 1px #000;
+}

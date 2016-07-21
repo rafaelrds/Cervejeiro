@@ -1,8 +1,7 @@
 angular.module('cervejeiro')
 
 .controller('CervejasCtrl', function(
-    $scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService,
-    $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService, $http) {
+    $scope, FirebaseService, $http, $ionicLoading) {
 
     var self = this;
 
@@ -12,28 +11,46 @@ angular.module('cervejeiro')
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab('right');
 
-    var beers = ['brahma', 'badenbadenstout', 'bambergrauchbier', 'dadobelgianale', 'eisenbahndunkel', 'eisenbahnpaleale'];
+    var brasileiras = ['brahma', 'badenbadenstout', 'bambergrauchbier', 'dadobelgianale', 'eisenbahndunkel', 'eisenbahnpaleale'];
 
     $scope.cervejas = [];
 
-    angular.forEach(beers, function(beer) {
+    $scope.cervejasFavoritas = [];
+
+    $scope.entityLoaded = false;
+
+    FirebaseService.getArrayEntidades("cervejasFavoritas").$loaded().then(function(info) {
+        $scope.cervejasFavoritas = info;
+        $scope.entityLoaded = true;
+    });
+
+    angular.forEach(brasileiras, function(beer) {
         $http({
             method: 'GET',
             url: 'http://prost.herokuapp.com/api/v1/beer/' + beer,
         }).then(function successCallback(response) {
             $scope.cervejas.push(response.data)
-        }, function errorCallback(response) {
-        });
-    }); 
+        }, function errorCallback(response) {});
+    });
 
-    for(var i=0; i<10; i++) {
+    for (var i = 0; i < 10; i++) {
         $http({
             method: 'GET',
             url: 'http://prost.herokuapp.com/api/v1/beer/rand',
         }).then(function successCallback(response) {
             $scope.cervejas.push(response.data)
-        }, function errorCallback(response) {
-        });
+        }, function errorCallback(response) {});
     }
 
+    $scope.favoritaCerveja = function(cerveja) {
+        $scope.cervejasFavoritas.$add(angular.copy(cerveja)).then(function() {
+            $ionicLoading.show({ template: 'Cerveja favoritada!', noBackdrop: true, duration: 2000 });
+        })
+    };
+
+    $scope.desfavoritaCerveja = function(cerveja) {
+        $scope.cervejasFavoritas.$remove(cerveja).then(function(ref) {
+            $ionicLoading.show({ template: 'Cerveja removida dos favoritos!', noBackdrop: true, duration: 2000 });
+        });
+    };    
 });
