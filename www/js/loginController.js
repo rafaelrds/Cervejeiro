@@ -1,6 +1,6 @@
-var cvj = angular.module('cervejeiro');
+angular.module('cervejeiro')
 
-cvj.controller('LoginCtrl', function(
+.controller('LoginCtrl', function(
     $scope, $stateParams, $state, $timeout, $ionicLoading, $firebaseAuth, ionicMaterialInk, AuthService) {
     var self = this;
 

@@ -1,6 +1,6 @@
-var povmt = angular.module('cervejeiro');
+angular.module('cervejeiro')
 
-povmt.controller('PerfilCtrl',
+.controller('PerfilCtrl',
     function($scope, $stateParams, $state, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService, AuthService) {
         var self = this;
 
@@ -24,7 +24,7 @@ povmt.controller('PerfilCtrl',
         });
 
 
-        $scope.tabAtual = 'atividades';
+        $scope.tabAtual = 'cervejas';
         $scope.isTabAtual = function(entidade) {
             return $scope.tabAtual === entidade;
         }

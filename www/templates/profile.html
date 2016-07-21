@@ -11,8 +11,8 @@
             <a data-ng-click="toggle('atividades')" class="tab-item">
                 <i class="icon ion-arrow-graph-up-right"></i> Atividade
             </a>
-            <a data-ng-click="toggle('tempoInvestido')" class="tab-item">
-                <i class="icon ion-clock"></i> Menu 2
+            <a data-ng-click="toggle('cervejas')" class="tab-item">
+                <i class="icon ion-beer"></i> Cervejas
             </a>
             <a data-ng-click="toggle('charts')" class="tab-item">
                 <i class="icon ion-pie-graph"></i> Menu 3
@@ -21,6 +21,6 @@
                 <i class="icon ion-calendar"></i> Menu 4
             </a>
         </div>
-        <div data-ng-show="isTabAtual('atividades')" data-ng-include="'templates/partials/atividades.html'" data-ng-controller="AtividadesCtrl"></div>
+        <div data-ng-show="isTabAtual('cervejas')" data-ng-include="'templates/partials/cervejas.html'" data-ng-controller="CervejasCtrl"></div>
     </ion-content>
 </ion-view>

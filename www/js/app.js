@@ -45,6 +45,10 @@ angular.module('starter', [
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(0);
 
+    // ENABLE CORS
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
     /*
     // Turn off back button text
     $ionicConfigProvider.backButton.previousTitleText(false);
@@ -67,6 +71,22 @@ angular.module('starter', [
             'fabContent': {
                 template: '<button data-ng-click="addAtividade()" id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900"><i class="icon ion-plus"></i></button>',
                 controller: 'AtividadesCtrl'
+            }
+        },
+        params: {
+            add: false
+        },
+        data: {
+            requireLogin: true
+        }
+    })
+
+    .state('app.cervejas', {
+        url: '/cervejas',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/cervejas.html',
+                controller: 'CervejasCtrl'
             }
         },
         params: {

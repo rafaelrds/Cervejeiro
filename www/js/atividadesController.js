@@ -1,12 +1,12 @@
-var povmt = angular.module('cervejeiro');
+angular.module('cervejeiro')
 
-povmt.controller('AtividadesCtrl', function(
+.controller('AtividadesCtrl', function(
     $scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService,
-    $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService) {
-    
+    $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService, $http) {
+
     var self = this;
 
-    $scope.atividade = { prioridade: 10, tipo : '', imagem: ""};
+    $scope.atividade = { prioridade: 10, tipo: '', imagem: "" };
     $scope.atividades = [];
 
     FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
@@ -109,9 +109,9 @@ povmt.controller('AtividadesCtrl', function(
         $scope.modalTipo.hide();
     };
 
-    $scope.salvarTipo = function (atividade) {
+    $scope.salvarTipo = function(atividade) {
         $scope.atividades.$save(atividade);
-        $scope.closeModalTipo();  
+        $scope.closeModalTipo();
     }
 
     $ionicModal.fromTemplateUrl('templates/addAtividadeModal.html', {

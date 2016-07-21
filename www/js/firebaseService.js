@@ -1,10 +1,10 @@
-var cvj = angular.module('cervejeiro');
+angular.module('cervejeiro')
 
-cvj.service("FirebaseService", ["$firebaseArray", "AuthService",
+.service("FirebaseService", ["$firebaseArray", "AuthService",
     function FirebaseService($firebaseArray, AuthService) {
         var self = this;
 
-        var FIREBASE_URI = "https://cervejeiro-b2425.firebaseio.com/";
+        var FIREBASE_URI = "https://povmt.firebaseio.com/";
 
         this.getArrayEntidades = function(nomeEntidade) {
             var userId = AuthService.getUsuarioLogado().uid;
