@@ -125,6 +125,20 @@ angular.module('starter', [
         data: {
             requireLogin: true
         }
+    })
+
+    .state('app.mapa', {
+        url: '/mapa',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/mapa.html',
+                controller: 'MapaCtrl'
+            },
+            'fabContent': {}
+        },
+        data: {
+            requireLogin: true
+        }
     });
 
     // if none of the above states are matched, use this as the fallback
