@@ -21,8 +21,8 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="addAtividadeModal.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/www/templates/addAtividadeModal.html">
+      <file leaf-file-name="addPromocaoModal.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/templates/addPromocaoModal.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.61764705">
               <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
@@ -101,7 +101,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/www/templates/addAtividadeModal.html" />
+        <option value="$PROJECT_DIR$/www/templates/addPromocaoModal.html" />
         <option value="$PROJECT_DIR$/www/index.html" />
         <option value="$PROJECT_DIR$/www/js/app.js" />
         <option value="$PROJECT_DIR$/www/templates/partials/promocoes.html" />
@@ -399,7 +399,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/addAtividadeModal.html">
+    <entry file="file://$PROJECT_DIR$/www/templates/addPromocaoModal.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.61764705">
           <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
