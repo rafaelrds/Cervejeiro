@@ -31,7 +31,7 @@ module.exports = function(config) {
 
             // CONTROLLERS
             'www/js/controllers.js',
-            'www/js/atividadesController.js',
+            'www/js/promocoesController.js',
             'www/js/loginController.js',
             'www/js/perfilController.js',
             'www/js/tempoInvestidoController.js',

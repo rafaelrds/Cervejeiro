@@ -1,6 +1,6 @@
 angular.module('cervejeiro')
 
-.controller('AtividadesCtrl', function(
+.controller('PromocoesCtrl', function(
     $scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService,
     $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService, $http) {
 
@@ -9,7 +9,7 @@ angular.module('cervejeiro')
     $scope.atividade = { prioridade: 10, tipo: '', imagem: "" };
     $scope.atividades = [];
 
-    FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
+    FirebaseService.getArrayEntidades("promocoes").$loaded().then(function(info) {
         $scope.atividades = info;
 
         $scope.$parent.showHeader();

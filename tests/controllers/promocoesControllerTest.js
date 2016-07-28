@@ -1,4 +1,4 @@
-describe('AtividadesControllersTest', function() {
+describe('promocoesControllersTest', function() {
     beforeEach(function() {
         angular.mock.module('ionic', 'povmt', 'firebase', 'ionic-material', 'angular-storage');
     });
@@ -38,7 +38,7 @@ describe('AtividadesControllersTest', function() {
                 hide: function() {}
             }
             getController = function() {
-                return $controller('AtividadesCtrl', {
+                return $controller('PromocoesCtrl', {
                     $scope: scope,
                     $routeParams: {
                         add: false
@@ -50,7 +50,7 @@ describe('AtividadesControllersTest', function() {
     });
 
     // tests start here
-    describe('AtividadesCtrl Main', function() {
+    describe('PromocoesCtrl Main', function() {
         it('Testa estado incial do controller', function() {
             var getArrayAtividadesStub = sinon.spy(firebaseService, 'getArrayEntidades')
             var controller = getController();
@@ -64,7 +64,7 @@ describe('AtividadesControllersTest', function() {
         });
     });
 
-    describe('AtividadesCtrl métodos do escopo', function() {
+    describe('PromocoesCtrl métodos do escopo', function() {
         it('Testa addAtividade', function() {
             var controller = getController();
             var modalStub = sinon.spy(scope.modal, 'show');
