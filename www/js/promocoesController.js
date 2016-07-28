@@ -6,11 +6,11 @@ angular.module('cervejeiro')
 
     var self = this;
 
-    $scope.atividade = { prioridade: 10, tipo: '', imagem: "" };
-    $scope.atividades = [];
+    $scope.promocao = { preco: 12.50, imagem: "" };
+    $scope.promocoes = [];
 
     FirebaseService.getArrayEntidades("promocoes").$loaded().then(function(info) {
-        $scope.atividades = info;
+        $scope.promocoes = info;
 
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
@@ -22,7 +22,7 @@ angular.module('cervejeiro')
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 
-    $scope.addAtividade = function() {
+    $scope.addPromocao = function() {
         $scope.modal.show();
     };
 
@@ -47,27 +47,27 @@ angular.module('cervejeiro')
         });
     };
 
-    $scope.salvarAtividade = function() {
+    $scope.salvarPromocao = function() {
         var imagem = FileService.imagem();
 
-        $scope.atividade.imagem = imagem;
+        $scope.promocao.imagem = imagem;
 
-        $scope.atividades.$add(angular.copy($scope.atividade)).then(function() {
-            $ionicLoading.show({ template: 'Atividade adicionada!', noBackdrop: true, duration: 2000 });
+        $scope.promocoes.$add(angular.copy($scope.promocao)).then(function() {
+            $ionicLoading.show({ template: 'Promoção adicionada!', noBackdrop: true, duration: 2000 });
             $scope.modal.hide();
-            $scope.atividade = { prioridade: 10 };
+            $scope.promocao = { preco: 12.50 };
         })
     };
 
-    $scope.updateAtividades = function() {
-        FirebaseService.getArrayEntidades("atividades").$loaded().then(function(info) {
-            $scope.atividades = info;
+    $scope.updatePromocoes = function() {
+        FirebaseService.getArrayEntidades("promocoes").$loaded().then(function(info) {
+            $scope.promocoes = info;
         });
     };
 
-    $scope.removeAtividade = function(atividade) {
-        $scope.atividades.$remove(atividade).then(function(ref) {
-            $ionicLoading.show({ template: 'Atividade Removida!', noBackdrop: true, duration: 2000 });
+    $scope.removePromocao = function(promocao) {
+        $scope.promocoes.$remove(promocao).then(function(ref) {
+            $ionicLoading.show({ template: 'Promoção Removida!', noBackdrop: true, duration: 2000 });
         });
     };
 
@@ -78,17 +78,17 @@ angular.module('cervejeiro')
         $scope.modalPrioridade = modal;
     });
 
-    $scope.addPrioridade = function(atividade) {
+    $scope.addPrioridade = function(promocao) {
         $scope.modalPrioridade.show();
-        $scope.atividade = atividade;
+        $scope.promocao = promocao;
     }
     $scope.closeModalPrioridade = function() {
-        $scope.updateAtividades();
+        $scope.updatePromocoes();
         $scope.modalPrioridade.hide();
     };
 
-    $scope.salvarPrioridade = function(atividade) {
-        $scope.atividades.$save(atividade);
+    $scope.salvarPrioridade = function(promocao) {
+        $scope.promocoes.$save(promocao);
         $scope.closeModalPrioridade();
     };
 
@@ -99,22 +99,22 @@ angular.module('cervejeiro')
         $scope.modalTipo = modal;
     });
 
-    $scope.addTipo = function(atividade) {
+    $scope.addTipo = function(promocao) {
         $scope.modalTipo.show();
-        $scope.atividade = atividade;
+        $scope.promocao = promocao;
     }
 
     $scope.closeModalTipo = function() {
-        $scope.updateAtividades();
+        $scope.updatePromocoes();
         $scope.modalTipo.hide();
     };
 
-    $scope.salvarTipo = function(atividade) {
-        $scope.atividades.$save(atividade);
+    $scope.salvarTipo = function(promocao) {
+        $scope.promocoes.$save(promocao);
         $scope.closeModalTipo();
     }
 
-    $ionicModal.fromTemplateUrl('templates/addAtividadeModal.html', {
+    $ionicModal.fromTemplateUrl('templates/addPromocaoModal.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function(modal) {
@@ -125,9 +125,8 @@ angular.module('cervejeiro')
         $scope.modal.hide();
     };
 
-    $scope.orderByPriority = function(atividade) {
-        var MAX_PRIORITY = 10;
-        return MAX_PRIORITY - parseInt(atividade.prioridade);
+    $scope.orderByPriority = function(promocao) {
+        return parseInt(promocao.preco);
     };
 
     //Cleanup the modal when we're done with it!

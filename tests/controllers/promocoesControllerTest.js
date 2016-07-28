@@ -65,11 +65,11 @@ describe('promocoesControllersTest', function() {
     });
 
     describe('PromocoesCtrl métodos do escopo', function() {
-        it('Testa addAtividade', function() {
+        it('Testa addPromocao', function() {
             var controller = getController();
             var modalStub = sinon.spy(scope.modal, 'show');
 
-            scope.addAtividade();
+            scope.addPromocao();
             assert(modalStub.calledOnce);
         });
 
