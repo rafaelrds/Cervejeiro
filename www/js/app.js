@@ -61,16 +61,16 @@ angular.module('starter', [
         controller: 'AppCtrl'
     })
 
-    .state('app.activity', {
-        url: '/activity',
+    .state('app.promocao', {
+        url: '/promocao',
         views: {
             'menuContent': {
-                templateUrl: 'templates/activity.html',
-                controller: 'AtividadesCtrl'
+                templateUrl: 'templates/promocao.html',
+                controller: 'PromocoesCtrl'
             },
             'fabContent': {
                 template: '<button data-ng-click="addAtividade()" id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900"><i class="icon ion-plus"></i></button>',
-                controller: 'AtividadesCtrl'
+                controller: 'PromocoesCtrl'
             }
         },
         params: {
@@ -156,4 +156,3 @@ angular.module('starter', [
 });
 
 angular.module('cervejeiro', []);
-
