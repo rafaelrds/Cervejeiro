@@ -18,15 +18,17 @@ angular.module('cervejeiro')
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
  
     var mapOptions = {
+      zoom: 17,
       center: latLng,
-      zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
  
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    console.log($scope.map);
+    var GeoMarker = new GeolocationMarker($scope.map);
 
   }, function(error){
     console.log("Could not get location");
   });
-    console.log("UH PAPAI CHEGOU");
+
 });
