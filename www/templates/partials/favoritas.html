@@ -4,13 +4,11 @@
             <span data-ng-show="cerveja.imagem" data-ng-click="addTipo(cerveja)" class="avatar" style="background-image: url(data:image/png;base64,{{cerveja.imagem}});"></span>
             <span data-ng-hide="cerveja.imagem" data-ng-click="addTipo(cerveja)" class="avatar" style="background-image: url('img/activity2.png');"></span>
             <strong>{{cerveja.title}}</strong>
-            <strong><center>{{cerveja.tipo}}</center></strong>
             <div class="card-footer text-right">
                 <i class="icon ion-android-delete favorite assertive" data-ng-click="desfavoritaCerveja(cerveja)" data-ng-show="entityLoaded"></i>
                 <div class="pull-left">
-                    <i data-ng-show="cerveja.tags[0]" class="icon ion-beer" style="margin-right: 5px;"></i>{{cerveja.tags[0]}}
-                    <i data-ng-show="cerveja.brewery.title" class="icon ion-home" style="margin-right: 5px;"></i>{{cerveja.brewery.title}}
-                    <i class="icon ion-earth" style="margin-right: 5px;"></i>{{cerveja.country.title}}
+                    <i data-ng-show="cerveja.tags[0]" class="icon ion-beer" style="margin-right: 5px;"></i>{{cerveja.abv}}
+                    <i class="icon ion-earth" style="margin-right: 5px;"></i>{{countries[cerveja.country_id].name}}
                 </div>
             </div>
         </div>

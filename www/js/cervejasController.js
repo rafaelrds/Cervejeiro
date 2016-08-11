@@ -1,7 +1,7 @@
 angular.module('cervejeiro')
 
 .controller('CervejasCtrl', function(
-    $scope, FirebaseService, $http, $ionicLoading) {
+    $scope, FirebaseService,BeerService, $http, $ionicLoading) {
 
     var self = this;
 
@@ -11,36 +11,27 @@ angular.module('cervejeiro')
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab('right');
 
-    var brasileiras = ['brahma', 'badenbadenstout', 'bambergrauchbier', 'dadobelgianale', 'eisenbahndunkel', 'eisenbahnpaleale'];
-
     $scope.cervejas = [];
 
     $scope.cervejasFavoritas = [];
 
+    $scope.countries = [];
+
     $scope.entityLoaded = false;
+
+    $scope.search = "";
 
     FirebaseService.getArrayEntidades("cervejasFavoritas").$loaded().then(function(info) {
         $scope.cervejasFavoritas = info;
-        $scope.entityLoaded = true;
     });
 
-    angular.forEach(brasileiras, function(beer) {
-        $http({
-            method: 'GET',
-            url: 'http://prost.herokuapp.com/api/v1/beer/' + beer,
-        }).then(function successCallback(response) {
-            $scope.cervejas.push(response.data)
-        }, function errorCallback(response) {});
-    });
-
-    for (var i = 0; i < 10; i++) {
-        $http({
-            method: 'GET',
-            url: 'http://prost.herokuapp.com/api/v1/beer/rand',
-        }).then(function successCallback(response) {
-            $scope.cervejas.push(response.data)
-        }, function errorCallback(response) {});
-    }
+    BeerService.getArrayEntidades("beers").$loaded().then(function(info) {
+        $scope.cervejas = info;
+        BeerService.getArrayEntidades("countries").$loaded().then(function(info) {
+            $scope.countries = info;
+            $scope.entityLoaded = true;
+        });
+    });    
 
     $scope.favoritaCerveja = function(cerveja) {
         $scope.cervejasFavoritas.$add(angular.copy(cerveja)).then(function() {
@@ -52,5 +43,10 @@ angular.module('cervejeiro')
         $scope.cervejasFavoritas.$remove(cerveja).then(function(ref) {
             $ionicLoading.show({ template: 'Cerveja removida dos favoritos!', noBackdrop: true, duration: 2000 });
         });
+    }; 
+
+    $scope.cleanSearch = function() {
+        $scope.search = null;
+        console.log(">>> clean")
     };    
 });
