@@ -2,7 +2,7 @@ angular.module('cervejeiro')
 
 .controller('PromocoesCtrl', function(
     $scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService,
-    $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService, $http) {
+    $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService, $http, $cordovaGeolocation) {
 
     var self = this;
 
@@ -48,15 +48,27 @@ angular.module('cervejeiro')
     };
 
     $scope.salvarPromocao = function() {
-        var imagem = FileService.imagem();
+      var imagem = FileService.imagem();
+      var options = {timeout: 10000, enableHighAccuracy: true};
 
-        $scope.promocao.imagem = imagem;
+      $scope.promocao.imagem = imagem;
 
+      $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+        $scope.promocao.coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         $scope.promocoes.$add(angular.copy($scope.promocao)).then(function() {
-            $ionicLoading.show({ template: 'Promoção adicionada!', noBackdrop: true, duration: 2000 });
-            $scope.modal.hide();
-            $scope.promocao = { preco: 12.50 };
-        })
+          $ionicLoading.show({ template: 'Promoção adicionada!', noBackdrop: true, duration: 2000 });
+          $scope.modal.hide();
+          $scope.promocao = { preco: 12.50 };
+        });
+      }, function(error){
+        console.log("Could not get location");
+        $scope.promocao.coord = '';
+        $scope.promocoes.$add(angular.copy($scope.promocao)).then(function() {
+          $ionicLoading.show({ template: 'Promoção adicionada!', noBackdrop: true, duration: 2000 });
+          $scope.modal.hide();
+          $scope.promocao = { preco: 12.50 };
+        });
+      });
     };
 
     $scope.updatePromocoes = function() {
@@ -91,28 +103,6 @@ angular.module('cervejeiro')
         $scope.promocoes.$save(promocao);
         $scope.closeModalPrioridade();
     };
-
-    $ionicModal.fromTemplateUrl('templates/tipoModal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function(modal) {
-        $scope.modalTipo = modal;
-    });
-
-    $scope.addTipo = function(promocao) {
-        $scope.modalTipo.show();
-        $scope.promocao = promocao;
-    }
-
-    $scope.closeModalTipo = function() {
-        $scope.updatePromocoes();
-        $scope.modalTipo.hide();
-    };
-
-    $scope.salvarTipo = function(promocao) {
-        $scope.promocoes.$save(promocao);
-        $scope.closeModalTipo();
-    }
 
     $ionicModal.fromTemplateUrl('templates/addPromocaoModal.html', {
         scope: $scope,

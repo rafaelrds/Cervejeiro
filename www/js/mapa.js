@@ -18,7 +18,7 @@ angular.module('cervejeiro')
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
  
     var mapOptions = {
-      zoom: 17,
+      zoom: 16,
       center: latLng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -27,8 +27,22 @@ angular.module('cervejeiro')
     console.log($scope.map);
     var GeoMarker = new GeolocationMarker($scope.map);
 
+    var image = "img/beer.png";
+    function placeMarker(location) {
+      var marker = new google.maps.Marker({
+          position: location, 
+          map: $scope.map,
+          icon : image
+      });
+    }
+    google.maps.event.addListener($scope.map, 'click', function(event) {
+      placeMarker(event.latLng);
+    });
+
   }, function(error){
     console.log("Could not get location");
   });
+
+
 
 });
