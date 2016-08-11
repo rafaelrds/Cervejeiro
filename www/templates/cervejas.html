@@ -1,5 +1,11 @@
 <ion-view view-title="Cervejas">
     <ion-content ng-class="{expanded:isExpanded}">
+    	<div class="list">
+			<label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+			    <input type="text" placeholder="Digite o nome da Cerveja" data-ng-model="search">
+			</label>
+		</div>
         <div data-ng-include="'templates/partials/cervejas.html'"></div>
     </ion-content>
 </ion-view>
