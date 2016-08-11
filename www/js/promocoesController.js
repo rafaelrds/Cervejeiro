@@ -92,28 +92,6 @@ angular.module('cervejeiro')
         $scope.closeModalPrioridade();
     };
 
-    $ionicModal.fromTemplateUrl('templates/tipoModal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function(modal) {
-        $scope.modalTipo = modal;
-    });
-
-    $scope.addTipo = function(promocao) {
-        $scope.modalTipo.show();
-        $scope.promocao = promocao;
-    }
-
-    $scope.closeModalTipo = function() {
-        $scope.updatePromocoes();
-        $scope.modalTipo.hide();
-    };
-
-    $scope.salvarTipo = function(promocao) {
-        $scope.promocoes.$save(promocao);
-        $scope.closeModalTipo();
-    }
-
     $ionicModal.fromTemplateUrl('templates/addPromocaoModal.html', {
         scope: $scope,
         animation: 'slide-in-up'
