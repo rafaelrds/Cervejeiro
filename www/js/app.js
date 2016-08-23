@@ -97,6 +97,22 @@ angular.module('starter', [
         }
     })
 
+    .state('app.buscar', {
+        url: '/buscar',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/buscar.html',
+                controller: 'PromocoesCtrl'
+            }
+        },
+        params: {
+            add: false
+        },
+        data: {
+            requireLogin: true
+        }
+    })
+
     .state('app.login', {
         url: '/login',
         views: {
