@@ -22,6 +22,10 @@ angular.module('cervejeiro')
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 
+    $scope.maisBarata = function() {
+        console.log("cerveja");
+    };
+
     $scope.addPromocao = function() {
         $scope.modal.show();
     };
