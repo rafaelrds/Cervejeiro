@@ -9,6 +9,9 @@
             </div>
             <strong><center>{{promocao.local}}</center></strong>
             <div class="card-footer text-right">
+                <div class="text-left">
+                      <div star-rating ng-model="promocao.stars" object="promocao" max="5" on-rating-select="saveRating"></div>
+                </div>
                 <i class="icon ion-android-delete ink positive delete" data-ng-click="removePromocao(promocao)"></i>
             </div>
         </div>
