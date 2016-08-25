@@ -11,7 +11,6 @@ angular.module('cervejeiro')
 
     FirebaseService.getArrayEntidades("promocoes").$loaded().then(function(info) {
         $scope.promocoes = info;
-
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
         $scope.isExpanded = true;
@@ -21,6 +20,10 @@ angular.module('cervejeiro')
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
+
+    $scope.maisBarata = function() {
+        console.log("cerveja");
+    };
 
     $scope.addPromocao = function() {
         $scope.modal.show();
@@ -131,4 +134,10 @@ angular.module('cervejeiro')
     $scope.$on('modal.removed', function() {
         // Execute action
     });
+
+    $scope.saveRating = function(promocao) {
+        $scope.promocoes.$save(promocao).then(function(ref) {
+            $ionicLoading.show({ template: 'Promoção Avaliada!', noBackdrop: true, duration: 2000 });
+        });
+    };
 });
