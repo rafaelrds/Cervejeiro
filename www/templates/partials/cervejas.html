@@ -4,14 +4,14 @@
         <input type="text" placeholder="Digite o nome da Cerveja" data-ng-model="search">
     </label>
 </div>
-<div class="item card-item" class="animate-fade-slide-in" data-ng-repeat="cerveja in cervejas  | orderBy:title | filter:search" data-ng-show="entityLoaded">
+<div class="item card-item" data-ng-repeat="cerveja in cervejas  | orderBy:title | filter:search" data-ng-show="entityLoaded" data-ng-click="review(cerveja)">
     <div class="card bar-dark" data-ng-show="cerveja.title">
         <div class="item item-avatar item-text-wrap">
-            <span data-ng-show="cerveja.imagem" data-ng-click="addTipo(cerveja)" class="avatar" style="background-image: url(data:image/png;base64,{{cerveja.imagem}});"></span>
-            <span data-ng-hide="cerveja.imagem" data-ng-click="addTipo(cerveja)" class="avatar" style="background-image: url('img/activity2.png');"></span>
+            <span data-ng-show="cerveja.imagem" class="avatar" style="background-image: url(data:image/png;base64,{{cerveja.imagem}});"></span>
+            <span data-ng-hide="cerveja.imagem" class="avatar" style="background-image: url('img/activity2.png');"></span>
             <strong>{{cerveja.title}}</strong>
             <div class="card-footer text-right">
-                <i class="icon ion-star favorite energized" data-ng-click="favoritaCerveja(cerveja)" data-ng-show="entityLoaded"></i>
+                <i class="icon ion-star favorite" data-ng-click="favoritaCerveja(cerveja)" data-ng-show="entityLoaded" data-ng-class="{energized: isFavorita(cerveja)}"></i>
                 <div class="pull-left">
                     <i data-ng-show="cerveja.abv" class="icon ion-beer" style="margin-right: 5px;"></i>{{cerveja.abv}}
                     <i class="icon ion-earth" style="margin-right: 5px;"></i>{{countries[cerveja.country_id].name}}

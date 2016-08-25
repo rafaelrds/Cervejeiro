@@ -1,7 +1,7 @@
 angular.module('cervejeiro')
 
 .controller('CervejasCtrl', function(
-    $scope, FirebaseService,BeerService, $http, $ionicLoading) {
+    $scope, FirebaseService,BeerService, $http, $ionicLoading, $filter, $state) {
 
     var self = this;
 
@@ -34,9 +34,11 @@ angular.module('cervejeiro')
     });    
 
     $scope.favoritaCerveja = function(cerveja) {
-        $scope.cervejasFavoritas.$add(angular.copy(cerveja)).then(function() {
-            $ionicLoading.show({ template: 'Cerveja favoritada!', noBackdrop: true, duration: 2000 });
-        })
+        if (!$scope.isFavorita(cerveja)) {
+            $scope.cervejasFavoritas.$add(angular.copy(cerveja)).then(function() {
+                $ionicLoading.show({ template: 'Cerveja favoritada!', noBackdrop: true, duration: 2000 });
+            })
+        }
     };
 
     $scope.desfavoritaCerveja = function(cerveja) {
@@ -47,6 +49,13 @@ angular.module('cervejeiro')
 
     $scope.cleanSearch = function() {
         $scope.search = null;
-        console.log(">>> clean")
     };    
+
+    $scope.isFavorita = function(cerveja) {
+        return $filter("filter")($scope.cervejasFavoritas, {key: cerveja.key}).length > 0;
+    };
+
+    $scope.review = function(cerveja) {
+        $state.go('app.review', {cerveja: cerveja});
+    };
 });
