@@ -143,6 +143,23 @@ angular.module('starter', [
         }
     })
 
+    .state('app.review', {
+        url: '/review',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/review.html',
+                controller: 'ReviewCtrl'
+            },
+            'fabContent': {}
+        },
+        data: {
+            requireLogin: true
+        },
+        params: {
+            cerveja: null
+        }
+    })
+
     .state('app.mapa', {
         url: '/mapa',
         views: {

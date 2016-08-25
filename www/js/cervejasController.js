@@ -1,7 +1,7 @@
 angular.module('cervejeiro')
 
 .controller('CervejasCtrl', function(
-    $scope, FirebaseService,BeerService, $http, $ionicLoading, $filter) {
+    $scope, FirebaseService,BeerService, $http, $ionicLoading, $filter, $state) {
 
     var self = this;
 
@@ -53,5 +53,9 @@ angular.module('cervejeiro')
 
     $scope.isFavorita = function(cerveja) {
         return $filter("filter")($scope.cervejasFavoritas, {key: cerveja.key}).length > 0;
-    }
+    };
+
+    $scope.review = function(cerveja) {
+        $state.go('app.review', {cerveja: cerveja});
+    };
 });
