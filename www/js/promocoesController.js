@@ -2,12 +2,15 @@ angular.module('cervejeiro')
 
 .controller('PromocoesCtrl', function(
     $scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService,
-    $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService, $http, $cordovaGeolocation) {
+    $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService, $http, $cordovaGeolocation,
+    BeerService) {
 
     var self = this;
 
-    $scope.promocao = { preco: 12.50, imagem: "" };
+    $scope.promocao = { imagem: "" };
     $scope.promocoes = [];
+
+    $scope.cervejas = [];
 
     FirebaseService.getArrayEntidades("promocoes").$loaded().then(function(info) {
         $scope.promocoes = info;
@@ -17,6 +20,14 @@ angular.module('cervejeiro')
         $scope.$parent.setExpanded(true);
         $scope.$parent.setHeaderFab('right');
     });
+
+    FirebaseService.getArrayEntidadesPublicas("avaliacoes", "cervejaId").$loaded().then(function(info) {
+        console.log(info)
+    });
+
+    BeerService.getArrayEntidades("beers").$loaded().then(function(info) {
+        $scope.cervejas = info;
+    }); 
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
@@ -57,12 +68,11 @@ angular.module('cervejeiro')
       $scope.promocao.imagem = imagem;
 
       $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-        $scope.promocao.lat = position.coords.latitude;
-        $scope.promocao.lng = position.coords.longitude;
+        //$scope.promocao.coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         $scope.promocoes.$add(angular.copy($scope.promocao)).then(function() {
           $ionicLoading.show({ template: 'Promoção adicionada!', noBackdrop: true, duration: 2000 });
           $scope.modal.hide();
-          $scope.promocao = { preco: 12.50 };
+          $scope.promocao = { };
         });
       }, function(error){
         console.log("Could not get location");
@@ -70,7 +80,7 @@ angular.module('cervejeiro')
         $scope.promocoes.$add(angular.copy($scope.promocao)).then(function() {
           $ionicLoading.show({ template: 'Promoção adicionada!', noBackdrop: true, duration: 2000 });
           $scope.modal.hide();
-          $scope.promocao = { preco: 12.50 };
+          $scope.promocao = { };
         });
       });
     };

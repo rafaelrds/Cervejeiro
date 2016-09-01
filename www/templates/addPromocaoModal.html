@@ -7,7 +7,9 @@
         <div class="list">
             <label class="item item-input">Cerveja</label>
             <label class="item item-input">
-                <input type="text" placeholder="Nome da cerveja" data-ng-model="promocao.cerveja">
+                <select name="repeatSelect" id="repeatSelect" ng-model="promocao.cerveja">
+                  <option ng-repeat="cerveja in cervejas | orderBy:'title'" value="{{cerveja.title}}">{{cerveja.title}}</option>
+                </select>
             </label>
             <label class="item item-input">Estabelecimento</label>
             <!-- <label class="item item-input">
@@ -15,7 +17,7 @@
             </label> -->
             <label class="item item-input">Preço</label>
             <label class="item item-input">
-                <input type="number" step="0.01" placeholder="Preço da unidade" data-ng-model="promocao.preco">
+                <input type="number" placeholder="Preço da unidade" data-ng-model="promocao.preco">
             </label>
         </div>
         <center>
