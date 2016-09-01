@@ -57,7 +57,8 @@ angular.module('cervejeiro')
       $scope.promocao.imagem = imagem;
 
       $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-        $scope.promocao.coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        $scope.promocao.lat = position.coords.latitude;
+        $scope.promocao.lng = position.coords.longitude;
         $scope.promocoes.$add(angular.copy($scope.promocao)).then(function() {
           $ionicLoading.show({ template: 'Promoção adicionada!', noBackdrop: true, duration: 2000 });
           $scope.modal.hide();
