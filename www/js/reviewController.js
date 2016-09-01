@@ -23,7 +23,7 @@ angular.module('cervejeiro')
         content: ""
     };
 
-    FirebaseService.getArrayEntidadesPublicas("avaliacoes").$loaded().then(function(info) {
+    FirebaseService.getArrayEntidadesPublicas("avaliacoes").then(function(info) {
         self.avaliacoes = info;
     });
 

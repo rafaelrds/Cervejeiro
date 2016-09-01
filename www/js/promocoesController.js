@@ -21,10 +21,6 @@ angular.module('cervejeiro')
         $scope.$parent.setHeaderFab('right');
     });
 
-    FirebaseService.getArrayEntidadesPublicas("avaliacoes", "cervejaId").$loaded().then(function(info) {
-        console.log(info)
-    });
-
     BeerService.getArrayEntidades("beers").$loaded().then(function(info) {
         $scope.cervejas = info;
     }); 

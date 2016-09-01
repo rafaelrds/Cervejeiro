@@ -39,7 +39,11 @@ angular.module('cervejeiro')
             }
 
             $firebaseArray(referencia).$loaded().then(function(info) {
-                deferred.resolve(entidades);
+                if (entidades.length >= 0) {
+                    deferred.resolve(entidades);
+                } else {
+                    deferred.resolve(info);
+                }
             });
 
             return deferred.promise;
