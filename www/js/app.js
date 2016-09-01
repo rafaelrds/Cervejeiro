@@ -160,6 +160,23 @@ angular.module('starter', [
         }
     })
 
+    .state('app.verReview', {
+        url: '/ver_review',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/ver_review.html',
+                controller: 'VerReviewCtrl'
+            },
+            'fabContent': {}
+        },
+        data: {
+            requireLogin: true
+        },
+        params: {
+            cerveja: null
+        }
+    })
+
     .state('app.mapa', {
         url: '/mapa',
         views: {

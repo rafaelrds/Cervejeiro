@@ -58,4 +58,8 @@ angular.module('cervejeiro')
     $scope.review = function(cerveja) {
         $state.go('app.review', {cerveja: cerveja});
     };
+
+    $scope.verReview = function(cerveja) {
+        $state.go('app.verReview', {cerveja: cerveja});
+    };
 });

@@ -1,16 +1,16 @@
-<ion-view view-title="Review de Cerveja">
+<ion-view view-title="Review de Cerveja">  
     <ion-content ng-class="{expanded:isExpanded}">
         <div class="list">
             <label class="item item-input">Cerveja</label>
             <label class="item item-input">
-                <input type="text" disabled="true" placeholder="Nome da cerveja" data-ng-model="avaliacao.title">
+                <input type="text" disabled="true" placeholder="Nome da cerveja" data-ng-model="novaAvaliacao.title">
             </label>
             <label class="item item-input">Avaliação</label>
             <label class="item item-input">
-                <input type="text" placeholder="Sua avaliação" data-ng-model="avaliacao.content">
+                <input type="text" placeholder="Sua avaliação" data-ng-model="novaAvaliacao.content">
             </label>
             <div class="item item-input">
-            	<div star-rating ng-model="avaliacao.stars" object="avaliacao" max="5" on-rating-select="saveRating"></div>
+                <div star-rating ng-model="novaAvaliacao.stars" object="novaAvaliacao" max="5" on-rating-select="saveRating"></div>
             </div>
         </div>
         <center>
