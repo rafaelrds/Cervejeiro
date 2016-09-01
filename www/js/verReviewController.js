@@ -16,7 +16,7 @@ angular.module('cervejeiro')
 
     $scope.avaliacoes = [];
 
-    FirebaseService.getArrayEntidadesPublicas("avaliacoes", $scope.cerveja.id).then(function(info) {
+    FirebaseService.getEntidadesPublicas("avaliacoes", $scope.cerveja.id, "cervejaId").then(function(info) {
         $scope.avaliacoes = info;
     });
 });

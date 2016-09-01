@@ -26,27 +26,28 @@ angular.module('cervejeiro')
             });
         };
 
-        this.getArrayEntidadesPublicas = function(nomeEntidade, id) {
+        this.getArrayEntidadesPublicas = function(nomeEntidade) {
+            var referencia = new Firebase(FIREBASE_URI + nomeEntidade + "/");
+            return $firebaseArray(referencia);
+        };
+
+        this.getEntidadesPublicas = function(nomeEntidade, id, filtro) {
             var deferred = $q.defer();
 
             var entidades = [];
 
             var referencia = new Firebase(FIREBASE_URI + nomeEntidade + "/");
             if (id != undefined) {
-                referencia.orderByChild("cervejaId").equalTo(id.toString()).on("child_added", function(snapshot) {
+                referencia.orderByChild(filtro).equalTo(id.toString()).on("child_added", function(snapshot) {
                     entidades.push(snapshot.val())
                 });
             }
 
             $firebaseArray(referencia).$loaded().then(function(info) {
-                if (entidades.length >= 0) {
-                    deferred.resolve(entidades);
-                } else {
-                    deferred.resolve(info);
-                }
+                deferred.resolve(entidades);
             });
 
             return deferred.promise;
-        }
+        };
     }
 ]);
