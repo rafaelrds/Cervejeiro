@@ -2,6 +2,7 @@
   <label class="item item-input">
       <i class="icon ion-search placeholder-icon"></i>
       <input type="text" placeholder="Digite o nome da Cerveja" ng-model="busca.cerveja">
+      <input type="number" placeholder="Raio de busca em Km" ng-model="PromocoesCtrl.raioBusca">
   </label>
 </div>
 <div class="item card-item" class="animate-fade-slide-in" data-ng-repeat="promocao in promocoes  | filter: busca.cerveja | orderBy:orderByPriority">

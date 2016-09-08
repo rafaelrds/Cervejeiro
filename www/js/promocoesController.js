@@ -10,6 +10,7 @@ angular.module('cervejeiro')
     $scope.promocao = { imagem: "" };
     $scope.promocoes = [];
 
+    $scope.raioBusca = 3;
     $scope.cervejas = [];
 
     FirebaseService.getArrayEntidades("promocoes").$loaded().then(function(info) {
@@ -23,7 +24,7 @@ angular.module('cervejeiro')
 
     BeerService.getArrayEntidades("beers").$loaded().then(function(info) {
         $scope.cervejas = info;
-    }); 
+    });
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
@@ -127,6 +128,30 @@ angular.module('cervejeiro')
 
     $scope.orderByPriority = function(promocao) {
         return parseInt(promocao.preco);
+    };
+
+    $scope.orderByClose = function(promocao) {
+        var options = {timeout: 10000, enableHighAccuracy: true};
+        var here = $cordovaGeolocation.getCurrentPosition(options)
+        promocao.dist = getDistance(here, promocao.coord);
+        return parseInt(promocao.dist)
+    }
+
+    var rad = function(x) {
+      return x * Math.PI / 180;
+    };
+
+    // Retorna distância em metros
+    var getDistance = function(p1, p2) {
+      var R = 6378137;
+      var dLat = rad(p2.lat() - p1.lat());
+      var dLong = rad(p2.lng() - p1.lng());
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) *
+        Math.sin(dLong / 2) * Math.sin(dLong / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c;
+      return d;
     };
 
     //Cleanup the modal when we're done with it!
