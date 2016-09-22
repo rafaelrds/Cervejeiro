@@ -18,6 +18,11 @@ angular.module('cervejeiro')
             return $firebaseArray(referencia);
         };
 
+        this.getArraySubEntidadesPublicas = function(nomeEntidade, id, nomeSubEntidade) {
+            var referencia = new Firebase(FIREBASE_URI + nomeEntidade + "/" + id + "/" + nomeSubEntidade);
+            return $firebaseArray(referencia);
+        };
+
         this.setNewPromocao = function(cerveja, local, preco) {
             var userId = AuthService.getUsuarioLogado().uid;
             firebase.database().ref('cervejas/' + cerveja).set({
@@ -26,8 +31,11 @@ angular.module('cervejeiro')
             });
         };
 
-        this.getArrayEntidadesPublicas = function(nomeEntidade) {
+        this.getArrayEntidadesPublicas = function(nomeEntidade, userId) {
             var referencia = new Firebase(FIREBASE_URI + nomeEntidade + "/");
+            if (userId) {
+                referencia = new Firebase(FIREBASE_URI + nomeEntidade + "/" + userId);
+            }
             return $firebaseArray(referencia);
         };
 
@@ -48,6 +56,13 @@ angular.module('cervejeiro')
             });
 
             return deferred.promise;
+        };
+
+        this.setWatchChanges = function(nomeEntidade, callback) {
+            var refPromo = new Firebase(FIREBASE_URI + nomeEntidade + "/");
+            refPromo.on('child_changed', function(payload) {
+                callback(payload);
+            })
         };
     }
 ]);

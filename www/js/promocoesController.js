@@ -3,24 +3,42 @@ angular.module('cervejeiro')
 .controller('PromocoesCtrl', function(
     $scope, $timeout, $ionicModal, $ionicPopup, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService,
     $cordovaDevice, $cordovaFile, $ionicPlatform, $ionicActionSheet, ImageService, FileService, $http, $cordovaGeolocation,
-    BeerService) {
+    BeerService, ReputacaoService, AuthService) {
 
     var self = this;
 
     $scope.promocao = { imagem: "" };
-    $scope.promocoes = [];
+    $scope.promocoes = {};
 
     $scope.raioBusca = 3;
-    $scope.cervejas = [];
+    $scope.cervejas = {};
 
-    FirebaseService.getArrayEntidades("promocoes").$loaded().then(function(info) {
-        $scope.promocoes = info;
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = true;
-        $scope.$parent.setExpanded(true);
-        $scope.$parent.setHeaderFab('right');
-    });
+    this.populaPromocoes = function(payload) {
+        FirebaseService.getArrayEntidadesPublicas("promocoes").$loaded().then(function(info) {
+            $scope.promocoes = info;
+            self.calculaMediaEstrelas($scope.promocoes);
+        });
+    };
+
+    FirebaseService.setWatchChanges("promocoes", self.populaPromocoes);
+
+    this.calculaMediaEstrelas = function(promocoes) {
+        angular.forEach(promocoes, function(promocao, key) {
+            var avaliacao = 0;
+            var numAvaliacoes = 0;
+            angular.forEach(promocao.stars, function(star, key) {
+                avaliacao += star.avaliacao;
+                numAvaliacoes++;
+                if (star.userId === AuthService.getUsuarioLogado().uid) {
+                    promocao.minhaAvaliacao = star.avaliacao;
+                }
+            });
+            if (numAvaliacoes > 0) {
+                promocao.avaliacaoMedia = avaliacao/numAvaliacoes;
+            }
+            promocao.numAvaliacoes = numAvaliacoes;
+        });
+    };
 
     BeerService.getArrayEntidades("beers").$loaded().then(function(info) {
         $scope.cervejas = info;
@@ -63,6 +81,7 @@ angular.module('cervejeiro')
       var options = {timeout: 10000, enableHighAccuracy: true};
 
       $scope.promocao.imagem = imagem;
+      $scope.promocao.user = AuthService.getUsuarioLogado();
 
       $cordovaGeolocation.getCurrentPosition(options).then(function(position){
         //$scope.promocao.coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -168,8 +187,19 @@ angular.module('cervejeiro')
     });
 
     $scope.saveRating = function(promocao) {
-        $scope.promocoes.$save(promocao).then(function(ref) {
-            $ionicLoading.show({ template: 'Promoção Avaliada!', noBackdrop: true, duration: 2000 });
+        var stars = FirebaseService.getArraySubEntidadesPublicas("promocoes", promocao.$id, "stars");
+        stars.$loaded().then(function(info) {
+            info.$add({
+                avaliacao: promocao.stars,
+                userId: AuthService.getUsuarioLogado().uid
+            }).then(function(ref) {
+                $ionicLoading.show({ template: 'Promoção Avaliada!', noBackdrop: true, duration: 2000 });
+                ReputacaoService.promocaoAvaliada(promocao);
+            });
         });
     };
+
+    (function main() {
+        self.populaPromocoes();
+    })();
 });

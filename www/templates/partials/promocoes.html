@@ -3,14 +3,15 @@
         <div class="item item-avatar item-text-wrap">
             <span data-ng-show="promocao.imagem" data-ng-click="" class="avatar" style="background-image: url(data:image/png;base64,{{promocao.imagem}});"></span>
             <span data-ng-hide="promocao.imagem" data-ng-click="" class="avatar" style="background-image: url('img/activity2.png');"></span>
-            <strong>{{promocao.cerveja}}</strong>
+            <strong>{{promocao.cerveja}}</strong> ({{promocao.user.nome}})
             <div>
               R$ {{promocao.preco}}
             </div>
             <strong><center>{{promocao.local}}</center></strong>
             <div class="card-footer text-right">
-                <div class="text-left">
-                      <div star-rating ng-model="promocao.stars" object="promocao" max="5" on-rating-select="saveRating"></div>
+                <div class="text-left"> 
+                      Avaliações: {{promocao.numAvaliacoes}} <div star-rating ng-model="promocao.avaliacaoMedia" object="promocao" max="5" readonly="true"></div>
+                      Minha Avaliação: <div star-rating ng-model="promocao.minhaAvaliacao" object="promocao" max="5" on-rating-select="saveRating"></div>
                 </div>
                 <i class="icon ion-android-delete ink positive delete" data-ng-click="removePromocao(promocao)"></i>
             </div>

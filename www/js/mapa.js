@@ -15,7 +15,6 @@ angular.module('cervejeiro')
     var options = { timeout: 10000, enableHighAccuracy: true };
 
     $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
-
         var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         $scope.pos = latLng;
         console.log($scope.pos.lat(), $scope.pos.lng());
@@ -47,7 +46,6 @@ angular.module('cervejeiro')
             }
         });
 
-
         $scope.map = new google.maps.Map(document.getElementById('map'), {
             zoom: 16,
             center: latLng,
@@ -59,12 +57,8 @@ angular.module('cervejeiro')
         }];
         $scope.map.setOptions({ styles: styles });
         var GeoMarker = new GeolocationMarker($scope.map);
-
-
         var infowindow = new google.maps.InfoWindow();
         var marker, i;
-
-
 
         function placeMarker(location) {
             $scope.addPromocao();
