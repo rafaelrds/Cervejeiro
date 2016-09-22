@@ -12,20 +12,27 @@ angular.module('cervejeiro')
         this.promocaoAvaliada = function(promocao, stars) {
             var uid = promocao.user.uid;
             if (!self.isUsuarioLogado(uid)) {
-                FirebaseService.getArrayEntidadesPublicas("reputacao", uid).$loaded().then(
-                    function(info) {
-                        info.$add({
-                            pontos: stars
-                        });
-                    });
+                addPontos(uid, stars);
             }
         };
 
         this.novoReviewCerveja = function(review) {
-            FirebaseService.getArrayEntidadesPublicas("reputacao", review.user_id).$loaded().then(
+            addPontos(review.user_id, 5);
+        };
+
+        this.novoReviewLiked = function(review) {
+            addPontos(review.user_id, 1);
+        };
+
+        this.novoReviewDesliked = function(review) {
+            addPontos(review.user_id, -1);
+        }
+
+        function addPontos(userId, pontos) {
+            FirebaseService.getArrayEntidadesPublicas("reputacao", userId).$loaded().then(
                 function(info) {
                     info.$add({
-                        pontos: 5
+                        pontos: pontos
                     });
                 });
         }

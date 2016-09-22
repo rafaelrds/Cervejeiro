@@ -35,7 +35,7 @@ angular.module('starter', [
             $state.go("app.login")
         } else if (!requireLogin && !AuthService.isUsuarioUndefined()) {
             event.preventDefault();
-            $state.go("app.profile");
+            $state.go("app.inicio");
         }
     });
 })
@@ -129,11 +129,25 @@ angular.module('starter', [
         }
     })
 
-    .state('app.profile', {
-        url: '/profile',
+    .state('app.inicio', {
+        url: '/inicio',
         views: {
             'menuContent': {
                 templateUrl: 'templates/profile.html',
+                controller: 'InicioCtrl'
+            },
+            'fabContent': {}
+        },
+        data: {
+            requireLogin: true
+        }
+    })
+
+    .state('app.perfil', {
+        url: '/perfil',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/perfil.html',
                 controller: 'PerfilCtrl'
             },
             'fabContent': {}

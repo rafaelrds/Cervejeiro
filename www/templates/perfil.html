@@ -1,0 +1,38 @@
+<ion-view view-title="Perfil">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="hero slide-up" style="background: url('img/profile.jpg') center;background-size: cover;">
+            <div class="content">
+                <div class="avatar" style="background: url('{{usuario.img}}') #FFF; background-size: cover; box-shadow: 0px 0px 10px #fff;"></div>
+                <h3><a class="light">Meu Perfil</a></h3>
+                <h4>{{usuario.nome}}</h4>
+            </div>
+        </div>
+        <div class="tabs bar-energized tabs-icon-top static">
+            <a data-ng-click="toggle('cervejas')" class="tab-item">
+                <i class="icon ion-arrow-graph-up-right"></i> Reputação
+            </a>
+            <a data-ng-click="toggle('favoritas')" class="tab-item">
+                <i class="icon ion-folder"></i> Dados
+            </a>
+        </div>
+        <div>
+            <div class="list card">
+                <div class="item item-body">
+                    <center>
+                        <h2 class="positive"><strong>Minha Reputação</strong></h2>
+                        <h1 class="energized">{{reputacao}}</h1>
+                        <p>
+                            Aumente sua reputação e ganhe todos os badges em busca de se tornar um Mestre Cervejeiro.
+                        </p>
+                        <h3 class="assertive">
+                            Beba com moderação e se beber não dirija
+                        </h3>
+                    </center>
+                    <p>
+                        <a href="#" class="subdued">1 Like</a>
+                        <a href="#" class="subdued">5 Reviews</a>
+                    </p>
+                </div>
+            </div>
+    </ion-content>
+</ion-view>

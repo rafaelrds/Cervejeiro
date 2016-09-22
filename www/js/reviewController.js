@@ -29,12 +29,14 @@ angular.module('cervejeiro')
 
     $scope.salvarReview = function() {
         var user = AuthService.getUsuarioLogado();
-        $scope.novaAvaliacao["user_id"] = user.uid;
-        $scope.novaAvaliacao["nome"] = user.nome;
-        $scope.novaAvaliacao["photo"] = user.img;
+        $scope.novaAvaliacao.user_id = user.uid;
+        $scope.novaAvaliacao.nome = user.nome;
+        $scope.novaAvaliacao.photo = user.img;
+        $scope.novaAvaliacao.likes = 0;
+        $scope.novaAvaliacao.deslikes = 0;
         
         self.avaliacoes.$add($scope.novaAvaliacao).then(function(ref) {
-            $state.go('app.profile');
+            $state.go('app.inicio');
             $ionicLoading.show({ template: 'Avaliação concluída!', noBackdrop: true, duration: 2000 });
             ReputacaoService.novoReviewCerveja($scope.novaAvaliacao);
         });

@@ -1,14 +1,20 @@
 angular.module('cervejeiro')
 
 .controller('PerfilCtrl',
-    function($scope, $stateParams, $state, $timeout, $ionicLoading, ionicMaterialMotion, ionicMaterialInk, FirebaseService, AuthService) {
+    function($scope, $timeout, ionicMaterialMotion, ionicMaterialInk, FirebaseService, AuthService) {
         var self = this;
 
         // Set Header
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
 
-        $scope.usuario = AuthService.getUsuarioLogado();
+        this.usuario = AuthService.getUsuarioLogado();
+
+        $scope.usuario = self.usuario;
+
+        $scope.reputacao = 0;
+
+        var REPUTACAO_URI = "reputacao/" + self.usuario.uid;
 
         $timeout(function() {
             $scope.$parent.isExpanded = false;
@@ -32,4 +38,20 @@ angular.module('cervejeiro')
         $scope.toggle = function(entidade) {
             $scope.tabAtual = entidade;
         };
+
+        this.getReputacao = function() {
+            FirebaseService.getArrayEntidadesPublicas(REPUTACAO_URI).$loaded().then(
+                function(info) {
+                    angular.forEach(info, function(rep) {
+                        $scope.reputacao += rep.pontos;
+                    })
+                });
+
+        };
+
+        FirebaseService.setWatchChanges(REPUTACAO_URI, self.getReputacao); 
+
+        (function main() {
+            self.getReputacao();
+        })();
     });

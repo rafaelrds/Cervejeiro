@@ -1,16 +1,25 @@
-<ion-view view-title="Review de Cerveja">  
+<ion-view view-title="Review de Cerveja">
     <ion-content ng-class="{expanded:isExpanded}">
         <div class="item card-item" data-ng-repeat="avaliacao in avaliacoes">
             <div class="card bar-dark" data-ng-show="avaliacao.title">
                 <div class="item item-avatar item-text-wrap">
                     <span data-ng-show="avaliacao.photo" class="avatar" style="background-image: url({{avaliacao.photo}});"></span>
                     <strong>{{avaliacao.title}}</strong>
-                        <div class="pull-right" readonly="true" star-rating ng-model="avaliacao.stars" max="5" on-rating-select="saveRating"></div>
+                    <div class="pull-right" readonly="true" star-rating ng-model="avaliacao.stars" max="5" on-rating-select="saveRating"></div>
                     <div class="card-footer text-left">
                         <div class="pull-left">
-                            <i class="icon ion-person" style="margin-right: 5px;"></i>{{avaliacao.nome}}<br>
+                            <i class="icon ion-person" style="margin-right: 5px;"></i>{{avaliacao.nome}}
+                            <br>
                             <i class="icon ion-android-chat" style="margin-right: 5px;"></i>{{avaliacao.content}}
-                        </div>   
+                        </div>
+                        <div class="pull-right">
+                            <a class="item item-icon-left ">
+                                <i data-ng-click="like(avaliacao)" class="icon ion-thumbsup positive"></i>{{avaliacao.likes}}
+                            </a>
+                            <a class="item item-icon-left">
+                                <i data-ng-click="deslike(avaliacao)" class="icon ion-thumbsdown assertive"></i>{{avaliacao.deslikes}} 
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -47,7 +47,9 @@ angular.module('cervejeiro')
             var referencia = new Firebase(FIREBASE_URI + nomeEntidade + "/");
             if (id != undefined) {
                 referencia.orderByChild(filtro).equalTo(id.toString()).on("child_added", function(snapshot) {
-                    entidades.push(snapshot.val())
+                    var val = snapshot.val();
+                    val.$id = snapshot.key();
+                    entidades.push(val);
                 });
             }
 
