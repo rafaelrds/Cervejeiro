@@ -4,6 +4,13 @@
         <input type="text" placeholder="Digite o nome da Cerveja" data-ng-model="search">
     </label>
 </div>
+<div data-ng-hide="entityLoaded">
+    <p>
+        <center>
+            <ion-spinner class="spinner-energized"></ion-spinner>
+        </center>
+    </p>
+</div>
 <div class="item card-item" data-ng-repeat="cerveja in cervejas  | orderBy:title | filter:search" data-ng-show="entityLoaded">
     <div class="card bar-dark" data-ng-show="cerveja.title">
         <div class="item item-avatar item-text-wrap">
@@ -19,11 +26,4 @@
                 </div>   
         </div>
     </div>
-</div>
-<div data-ng-hide="entityLoaded">
-    <p>
-        <center>
-            <ion-spinner class="spinner-energized"></ion-spinner>
-        </center>
-    </p>
 </div>
