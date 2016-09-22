@@ -199,6 +199,10 @@ angular.module('cervejeiro')
         });
     };
 
+    $scope.podeRemoverPromocao = function(promocao) {
+        return promocao.user.uid === AuthService.getUsuarioLogado().uid;   
+    };
+
     (function main() {
         self.populaPromocoes();
     })();

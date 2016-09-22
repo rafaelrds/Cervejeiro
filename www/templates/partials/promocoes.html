@@ -14,7 +14,7 @@
                       Minha Avaliação: <div star-rating ng-model="promocao.minhaAvaliacao" object="promocao" max="5" on-rating-select="saveRating"></div>
                         
                 </div>
-                <i class="icon ion-android-delete ink positive delete" data-ng-click="removePromocao(promocao)"></i>
+                <i data-ng-show="podeRemoverPromocao(promocao)" class="icon ion-android-delete ink positive delete" data-ng-click="removePromocao(promocao)"></i>
             </div>
         </div>
     </div>
