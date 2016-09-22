@@ -187,14 +187,15 @@ angular.module('cervejeiro')
     });
 
     $scope.saveRating = function(promocao) {
+        var minhaAvaliacao = promocao.stars;
         var stars = FirebaseService.getArraySubEntidadesPublicas("promocoes", promocao.$id, "stars");
         stars.$loaded().then(function(info) {
             info.$add({
-                avaliacao: promocao.stars,
+                avaliacao: minhaAvaliacao,
                 userId: AuthService.getUsuarioLogado().uid
             }).then(function(ref) {
                 $ionicLoading.show({ template: 'Promoção Avaliada!', noBackdrop: true, duration: 2000 });
-                ReputacaoService.promocaoAvaliada(promocao);
+                ReputacaoService.promocaoAvaliada(promocao, minhaAvaliacao);
             });
         });
     };

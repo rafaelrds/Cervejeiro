@@ -2,7 +2,7 @@ angular.module('cervejeiro')
 
 .controller('ReviewCtrl', function(
     $scope, FirebaseService,BeerService, $http, $ionicLoading, $filter, $stateParams, $state,
-    AuthService) {
+    AuthService, ReputacaoService) {
 
     var self = this;
 
@@ -32,11 +32,15 @@ angular.module('cervejeiro')
         $scope.novaAvaliacao["user_id"] = user.uid;
         $scope.novaAvaliacao["nome"] = user.nome;
         $scope.novaAvaliacao["photo"] = user.img;
+        
         self.avaliacoes.$add($scope.novaAvaliacao).then(function(ref) {
             $state.go('app.profile');
             $ionicLoading.show({ template: 'Avaliação concluída!', noBackdrop: true, duration: 2000 });
+            ReputacaoService.novoReviewCerveja($scope.novaAvaliacao);
         });
     };
 
-    $scope.saveRating = function(cerveja) {};
+    $scope.saveRating = function(cerveja) {
+        // Método sem corpo
+    };
 });
