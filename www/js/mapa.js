@@ -15,9 +15,14 @@ angular.module('cervejeiro')
     var options = { timeout: 10000, enableHighAccuracy: true };
 
     $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
-        var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        $scope.pos = latLng;
-        console.log($scope.pos.lat(), $scope.pos.lng());
+        console.log(position);
+    }, function(error) {
+        console.log("Could not get location");
+    });
+
+        // var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        // $scope.pos = latLng;
+        // console.log($scope.pos.lat(), $scope.pos.lng());
 
         $scope.promocoes = [];
 
@@ -48,9 +53,11 @@ angular.module('cervejeiro')
 
         $scope.map = new google.maps.Map(document.getElementById('map'), {
             zoom: 16,
-            center: latLng,
+            // center: latLng,
+             center: {lat: -7.212797, lng: -35.908365},
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+        console.log($scope.map);
         var styles = [{
             "featureType": "transit.station.bus",
             "stylers": [{ "visibility": "off" }]
@@ -85,9 +92,9 @@ angular.module('cervejeiro')
             placeMarker(event.latLng);
         });
 
-    }, function(error) {
-        console.log("Could not get location");
-    });
+    // }, function(error) {
+    //     console.log("Could not get location");
+    // });
 
     $ionicModal.fromTemplateUrl('templates/addPromocaoModal.html', {
         scope: $scope,
