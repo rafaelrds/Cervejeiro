@@ -8,6 +8,11 @@
       Your Name Here
     </author>
   <content src="index.html"/>
+  <access origin="http://google.com"/>
+  <access origin="https://google.com"/>
+  <access origin="http://maps.google.com"/>
+  <access origin="http://*.google.com"/>
+  <access origin="content:///*"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
