@@ -21,7 +21,7 @@ angular.module('cervejeiro')
 
         $scope.promocoes = [];
 
-        FirebaseService.getArrayEntidades("promocoes").$loaded().then(function(info) {
+        FirebaseService.getArrayEntidadesPublicas("promocoes").$loaded().then(function(info) {
             $scope.promocoes = info;
             $scope.$parent.showHeader();
             $scope.$parent.clearFabs();
@@ -61,7 +61,8 @@ angular.module('cervejeiro')
         var marker, i;
 
         function placeMarker(location) {
-            $scope.addPromocao();
+            console.log(location.lat() + " " + location.lng());
+            $scope.addPromocao(location);
             i = i + 1;
             console.log("VAR i ", i);
             marker = new google.maps.Marker({
@@ -95,9 +96,9 @@ angular.module('cervejeiro')
     }).then(function(modal) {
         $scope.modal = modal;
     });
-    $scope.addPromocao = function() {
-        $scope.promocao.lat = $scope.pos.lat();
-        $scope.promocao.lng = $scope.pos.lng();
+    $scope.addPromocao = function(location) {
+        $scope.promocao.lat = location.lat();
+        $scope.promocao.lng = location.lng();
         $scope.modal.show();
     };
     $scope.closeModal = function() {
@@ -106,8 +107,8 @@ angular.module('cervejeiro')
     };
 
     $scope.salvarPromocao = function() {
-        $scope.promocao.lat = $scope.pos.lat();
-        $scope.promocao.lng = $scope.pos.lng();
+        // $scope.promocao.lat = $scope.pos.lat();
+        // $scope.promocao.lng = $scope.pos.lng();
         console.log($scope.promocao);
         $scope.promocoes.$add(angular.copy($scope.promocao)).then(function() {
             $ionicLoading.show({ template: 'Promoção adicionada!', noBackdrop: true, duration: 2000 });

@@ -11,7 +11,7 @@
                   <option ng-repeat="cerveja in cervejas | orderBy:'title'" value="{{cerveja.title}}">{{cerveja.title}}</option>
                 </select>
             </label>
-            <label class="item item-input">Estabelecimento</label>
+            <!-- <label class="item item-input">Estabelecimento</label> -->
             <!-- <label class="item item-input">
                 <input type="text" placeholder="Local da compra" data-ng-model="promocao.lat">
             </label> -->
@@ -21,7 +21,7 @@
             </label>
         </div>
         <center>
-            <button class="button button-assertive" data-ng-click="salvarPromocao()">
+            <button class="button button-assertive" data-ng-click="salvarPromocao(promocao_pos)">
                 Criar
             </button>
         </center>
